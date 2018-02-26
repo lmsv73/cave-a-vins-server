@@ -49,6 +49,8 @@ public class Application {
         return (args) -> {
             // save a couple of person
             repository.save(new BottleType("Vin Rouge",false));
+            repository.save(new BottleType("Vin Vert",true));
+            repository.save(new BottleType("Vin Marron",false));
         };
     }
 
