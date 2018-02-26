@@ -1,9 +1,11 @@
-package com.niran.reference.api;
+package com.reference.api;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
-import com.niran.reference.api.domain.BottleType;
-import com.niran.reference.api.domain.BottleTypeRepository;
+import com.reference.api.models.BottleType;
+import com.reference.api.models.User;
+import com.reference.api.repository.BottleTypeRepository;
+import com.reference.api.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -45,12 +47,21 @@ public class Application {
    }
 
     @Bean
-    public CommandLineRunner demo(BottleTypeRepository repository) {
+    public CommandLineRunner seedBottle(BottleTypeRepository repository) {
         return (args) -> {
             // save a couple of person
-            repository.save(new BottleType("Vin Rouge",false));
-            repository.save(new BottleType("Vin Vert",true));
-            repository.save(new BottleType("Vin Marron",false));
+            repository.save(new BottleType("Bordeaux supérieur",false));
+            repository.save(new BottleType("saumur-champigny",true));
+            repository.save(new BottleType("sainte-croix-du-mont",false));
+            repository.save(new BottleType("vacqueyras",false));
+        };
+    }
+
+    @Bean
+    public CommandLineRunner seedUser(UserRepository repository) {
+        return (args) -> {
+            repository.save(new User("ludo","asticot"));
+            repository.save(new User("trima","asticot"));
         };
     }
 

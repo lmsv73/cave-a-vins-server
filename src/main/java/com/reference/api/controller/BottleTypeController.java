@@ -1,9 +1,9 @@
-package com.niran.reference.api.controller;
+package com.reference.api.controller;
 
 import java.util.List;
 
-import com.niran.reference.api.domain.BottleType;
-import com.niran.reference.api.domain.BottleTypeRepository;
+import com.reference.api.models.BottleType;
+import com.reference.api.repository.BottleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;

@@ -1,5 +1,6 @@
-package com.niran.reference.api.domain;
+package com.reference.api.repository;
 
+import com.reference.api.models.BottleType;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;

@@ -1,7 +1,8 @@
-package com.niran.reference.api.controller;
+package com.reference.api.controller;
 
 import java.util.List;
 
+import com.reference.api.models.Person;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.niran.reference.api.domain.Person;
-import com.niran.reference.api.domain.PersonRepository;
+import com.reference.api.repository.PersonRepository;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
