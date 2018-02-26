@@ -2,6 +2,9 @@ package com.niran.reference.api;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
+import com.niran.reference.api.domain.BottleType;
+import com.niran.reference.api.domain.BottleTypeRepository;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -20,16 +23,16 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-    
+
    @Bean
-   public Docket personApi() {
-       return new Docket(DocumentationType.SWAGGER_2)
-               .groupName("spring-swagger-api")
-               .apiInfo(apiInfo())
-               .select()
-               .paths(regex ("/people.*"))
-               .build();
-   }
+    public Docket Api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("spring-swagger-api")
+                .apiInfo(apiInfo())
+                .select()
+                .paths(regex ("/*.*"))
+                .build();
+    }
     
    private ApiInfo apiInfo() {
        return new ApiInfoBuilder()
@@ -40,6 +43,14 @@ public class Application {
                .version("1.0")
                .build();
    }
+
+    @Bean
+    public CommandLineRunner demo(BottleTypeRepository repository) {
+        return (args) -> {
+            // save a couple of person
+            repository.save(new BottleType("Vin Rouge",false));
+        };
+    }
 
 
 }
