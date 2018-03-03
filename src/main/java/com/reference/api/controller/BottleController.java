@@ -4,8 +4,12 @@ import java.util.List;
 
 import com.reference.api.models.Bottle;
 import com.reference.api.models.BottleType;
+import com.reference.api.models.Compartment;
+import com.reference.api.models.User;
 import com.reference.api.repository.BottleRepository;
 import com.reference.api.repository.BottleTypeRepository;
+import com.reference.api.repository.CompartmentRepository;
+import com.reference.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +30,9 @@ import io.swagger.annotations.ApiResponses;
 public class BottleController {
     @Autowired
     private BottleRepository bottleRepository;
+    private CompartmentRepository compartmentRepository;
+    private BottleTypeRepository bottleTypeRepository;
+    private UserRepository userRepository;
 
     /**
      * Create a new bottle
@@ -38,7 +45,10 @@ public class BottleController {
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a bottle type")
     public Bottle add(@RequestBody Bottle bottle) {
-        Bottle savedBottle =  bottleRepository.save(bottle);
+        Compartment c = compartmentRepository.findOne(bottle.getCompartment().getId());
+        BottleType bt = bottleTypeRepository.findOne(bottle.getType().getId());
+        User u = userRepository.findOne(bottle.getOwner().getId());
+        Bottle savedBottle =  bottleRepository.save(new Bottle(bottle.getDate(),bottle.getRegion(),u,bt,c));
 
         return savedBottle;
     }
