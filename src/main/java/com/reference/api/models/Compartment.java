@@ -26,6 +26,8 @@ public class Compartment {
     @Valid
     private String photoUrl = null;
 
+
+
     protected Compartment () {
 
     }

@@ -3,11 +3,9 @@ package com.reference.api.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 @Entity
 public class User {
@@ -17,10 +15,15 @@ public class User {
     private Long id = null;
 
     @JsonProperty("username")
+    @Column(nullable = false)
     private String username = null;
 
+    @Column(nullable = false)
     @JsonProperty("password")
     private String password = null;
+
+    @OneToMany(targetEntity = Bottle.class,cascade = CascadeType.ALL)
+    private List<Bottle> bottlelist;
 
     public User id(Long id) {
         this.id = id;

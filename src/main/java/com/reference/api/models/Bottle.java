@@ -58,17 +58,17 @@ public class Bottle {
     @Valid
     private List<String> photoUrls = null;
 
-    @OneToOne(targetEntity=User.class, fetch=FetchType.EAGER)
+    @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
     @Type(type="user")
     @JsonProperty("owner")
     private User owner = null;
 
-    @OneToOne(targetEntity=BottleType.class, fetch=FetchType.EAGER)
+    @ManyToOne(targetEntity=BottleType.class, fetch=FetchType.EAGER)
     @Type(type="bottletype")
     @JsonProperty("type")
     private BottleType type = null;
 
-    @OneToOne(targetEntity=Compartment.class, fetch=FetchType.EAGER)
+    @ManyToOne(targetEntity=Compartment.class, fetch=FetchType.EAGER)
     @Type(type="compartment")
     @JsonProperty("compartment")
     private Compartment compartment = null;
