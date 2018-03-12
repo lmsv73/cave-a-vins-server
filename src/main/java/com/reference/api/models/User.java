@@ -25,6 +25,9 @@ public class User {
     @OneToMany(targetEntity = Bottle.class,cascade = CascadeType.ALL)
     private List<Bottle> bottlelist;
 
+    @OneToMany(targetEntity = Compartment.class, cascade = CascadeType.ALL)
+    private List<Compartment> compartmentsList;
+
     public User id(Long id) {
         this.id = id;
         return this;

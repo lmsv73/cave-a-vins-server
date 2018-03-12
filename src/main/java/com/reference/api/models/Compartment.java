@@ -26,13 +26,17 @@ public class Compartment {
     @Valid
     private String photoUrl = null;
 
+    @ManyToOne(targetEntity = User.class)
+    private User owner;
+
 
 
     protected Compartment () {
 
     }
-    public Compartment (String name) {
+    public Compartment (String name, User user) {
         this.name = name;
+        this.owner = user;
 
     }
 

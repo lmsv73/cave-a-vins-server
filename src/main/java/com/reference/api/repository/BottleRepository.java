@@ -7,5 +7,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface BottleRepository  extends PagingAndSortingRepository<Bottle, Long> {
-    List<Bottle> findAllByOwner(User u);
+    List<Bottle> findByOwner(User u);
 }

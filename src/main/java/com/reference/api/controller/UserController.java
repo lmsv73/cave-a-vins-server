@@ -3,8 +3,10 @@ package com.reference.api.controller;
 import java.util.List;
 
 import com.reference.api.models.Bottle;
+import com.reference.api.models.Compartment;
 import com.reference.api.models.User;
 import com.reference.api.repository.BottleRepository;
+import com.reference.api.repository.CompartmentRepository;
 import com.reference.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,8 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private BottleRepository bottleRepository;
+    @Autowired
+    private CompartmentRepository compartmentRepository;
 
     /**
      * Create a new user
@@ -67,15 +71,33 @@ public class UserController {
      * Fetch list of user's bottle
      * @return a list of bottle
      */
-    @RequestMapping(path="/{id}/bottles", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(path="/bottles", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "Fetch all bottle of the user")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
     public List<Bottle> bottles(@RequestParam String username) {
-        List<Bottle> bottles = bottleRepository.findAllByOwner(userRepository.findOneByUsername(username));
+        List<Bottle> bottles = bottleRepository.findByOwner(userRepository.findOneByUsername(username));
         return bottles;
     }
+
+    /**
+     * Fetch user's compartment
+     * @return a list of bottle
+     */
+    @RequestMapping(path="/compartments", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = "Fetch all compartments of the user")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Server Error")})
+    public List<Compartment> compartments(@RequestParam String username) {
+        User u = userRepository.findOneByUsername(username);
+        List<Compartment> compartments = compartmentRepository.findByOwner(u);
+        return compartments;
+    }
+
+
 
 }

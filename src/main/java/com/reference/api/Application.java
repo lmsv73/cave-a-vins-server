@@ -61,11 +61,11 @@ public class Application {
             bottletype_repo.save(new BottleType("sainte-croix-du-mont",false));
             bottletype_repo.save(new BottleType("vacqueyras",false));
             User u1 = new User("ludo","asticot");
-            Compartment c1 = new Compartment("A1");
+            Compartment c1 = new Compartment("A1",u1);
             user_repo.save(u1);
             user_repo.save(new User("trima","asticot"));
             compartment_repo.save(c1);
-            compartment_repo.save(new Compartment("A2"));
+            compartment_repo.save(new Compartment("A2",u1));
             bottle_repo.save(new Bottle(new Long(14121996),"rhone alpes",u1,bt1,c1));
 
         };
