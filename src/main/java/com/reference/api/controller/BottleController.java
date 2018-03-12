@@ -30,8 +30,11 @@ import io.swagger.annotations.ApiResponses;
 public class BottleController {
     @Autowired
     private BottleRepository bottleRepository;
+    @Autowired
     private CompartmentRepository compartmentRepository;
+    @Autowired
     private BottleTypeRepository bottleTypeRepository;
+    @Autowired
     private UserRepository userRepository;
 
     /**
