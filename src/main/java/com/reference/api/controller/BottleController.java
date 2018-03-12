@@ -1,7 +1,5 @@
 package com.reference.api.controller;
 
-import java.util.List;
-
 import com.reference.api.models.Bottle;
 import com.reference.api.models.BottleType;
 import com.reference.api.models.Compartment;
@@ -11,7 +9,9 @@ import com.reference.api.repository.BottleTypeRepository;
 import com.reference.api.repository.CompartmentRepository;
 import com.reference.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,7 +64,13 @@ public class BottleController {
             @ApiResponse(code = 200, message = "Success", response = Bottle.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public Bottle updateBottleType(@PathVariable("bottleID") Long id) {
-        return bottleRepository.findOne(id);
+    public ResponseEntity<Bottle> updateBottleType(@PathVariable("bottleID") Long id) {
+        Bottle bottle = bottleRepository.findOne(id);
+
+        if(bottle == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottle);
+        }
     }
 }
