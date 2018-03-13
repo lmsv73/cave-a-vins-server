@@ -1,8 +1,10 @@
 package com.reference.api.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
+import org.hibernate.annotations.Proxy;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
@@ -12,7 +14,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+@Proxy(lazy = false)
 @Entity
 @TypeDefs({
         @TypeDef(
@@ -54,9 +56,9 @@ public class Bottle {
 
     @Column(nullable = true)
     @ElementCollection(targetClass=String.class)
-    @JsonProperty("photoUrls")
+    @JsonIgnore
     @Valid
-    private List<String> photoUrls = null;
+    private List<String> photoUrls = new ArrayList<>();
 
     @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
     @Type(type="user")
