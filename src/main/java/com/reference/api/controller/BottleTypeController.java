@@ -6,11 +6,7 @@ import com.reference.api.models.BottleType;
 import com.reference.api.repository.BottleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import io.swagger.annotations.ApiOperation;
@@ -30,12 +26,15 @@ public class BottleTypeController {
      * @return a list of bottle type
      */
     @RequestMapping(path="/", method = RequestMethod.GET, produces = "application/json")
+
     @ApiOperation(value = "Fetch all type bottle")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = BottleType.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public List<BottleType> bottles() {
+    public List<BottleType> bottles(
+           //    @RequestHeader(value="Authorization") String headerStr
+    ) {
         List<BottleType> bottles = (List<BottleType>) bottleTypeRepository.findAll();
 
         return bottles;
