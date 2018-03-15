@@ -3,7 +3,6 @@ package com.reference.api;
 import com.reference.api.models.BottleType;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -26,6 +25,7 @@ import static org.apache.http.HttpStatus.SC_NOT_FOUND;
 import static org.apache.http.HttpStatus.SC_OK;
 import static org.assertj.core.api.Assertions.assertThat;
 
+
 public class BottleTypeTest {
 
     @Test
@@ -46,12 +46,15 @@ public class BottleTypeTest {
     public void should_200_On_Updating_BottleType() throws IOException, URISyntaxException {
         HttpPost request = new HttpPost(new URL("http://localhost:" + 8080 + "/bottletype/update/").toURI());
 
-        ArrayList<NameValuePair> postParameters = new ArrayList<>();
-        postParameters.add(new BasicNameValuePair("id", "1"));
-        postParameters.add(new BasicNameValuePair("name", "Bordeaux inférieur"));
-        postParameters.add(new BasicNameValuePair("valide", "false"));
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
 
-        request.setEntity(new UrlEncodedFormEntity(postParameters, "UTF-8"));
+        ObjectMapper mapper = new ObjectMapper();
+
+        BottleType obj = new BottleType("blabla",true);
+        obj.setId(Integer.toUnsignedLong(1));
+
+        request.setEntity(new StringEntity(mapper.writeValueAsString(obj), "UTF-8"));
 
         HttpResponse response = HttpClientBuilder.create().build().execute(request);
         assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_OK);
