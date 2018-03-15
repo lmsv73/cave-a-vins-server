@@ -70,7 +70,7 @@ public class BottleController {
         if(bottle == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottle);
+            return ResponseEntity.status(HttpStatus.OK).body(bottle);
         }
     }
 }

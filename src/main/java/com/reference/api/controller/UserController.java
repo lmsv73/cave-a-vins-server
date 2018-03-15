@@ -60,7 +60,7 @@ public class UserController {
         if(savedUser.size()==0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(savedUser.get(0));
+            return ResponseEntity.status(HttpStatus.OK).body(savedUser.get(0));
         }
     }
 
@@ -79,7 +79,7 @@ public class UserController {
         if(bottles.size()==0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottles);
+            return ResponseEntity.status(HttpStatus.OK).body(bottles);
         }
     }
 
@@ -98,7 +98,7 @@ public class UserController {
         if(u == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(u);
+            return ResponseEntity.status(HttpStatus.OK).body(u);
         }
     }
 }

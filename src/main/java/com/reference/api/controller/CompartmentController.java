@@ -66,7 +66,7 @@ public class CompartmentController {
         if(savedCompartment == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(savedCompartment);
+            return ResponseEntity.status(HttpStatus.OK).body(savedCompartment);
         }
     }
 

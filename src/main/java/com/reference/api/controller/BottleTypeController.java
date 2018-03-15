@@ -39,7 +39,7 @@ public class BottleTypeController {
         if(bottles == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottles);
+            return ResponseEntity.status(HttpStatus.OK).body(bottles);
         }
     }
 
@@ -72,7 +72,7 @@ public class BottleTypeController {
         if(bottlesToValidate.size() == 0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottlesToValidate);
+            return ResponseEntity.status(HttpStatus.OK).body(bottlesToValidate);
         }
     }
 
@@ -90,7 +90,7 @@ public class BottleTypeController {
         if(bottleToUpdate == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottleToUpdate);
+            return ResponseEntity.status(HttpStatus.OK).body(bottleToUpdate);
         }
     }
 

@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
@@ -44,17 +45,15 @@ public class BottleTypeTest {
     @Test
     public void should_200_On_Updating_BottleType() throws IOException, URISyntaxException {
         HttpPost request = new HttpPost(new URL("http://localhost:" + 8080 + "/bottletype/update/").toURI());
-        request.setHeader("Accept", "application/json");
-        request.setHeader("Content-type", "application/json");
 
-        BottleType bottleType = new BottleType("Bordeaux inférieur", false);
-        bottleType.id((long) 1);
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-        String json = ow.writeValueAsString(bottleType);
+        ArrayList<NameValuePair> postParameters = new ArrayList<>();
+        postParameters.add(new BasicNameValuePair("id", "1"));
+        postParameters.add(new BasicNameValuePair("name", "Bordeaux inférieur"));
+        postParameters.add(new BasicNameValuePair("valide", "false"));
 
-        request.setEntity(new StringEntity(json));
+        request.setEntity(new UrlEncodedFormEntity(postParameters, "UTF-8"));
 
         HttpResponse response = HttpClientBuilder.create().build().execute(request);
-        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_NOT_FOUND);
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_OK);
     }
 }
