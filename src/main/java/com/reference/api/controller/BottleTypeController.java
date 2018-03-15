@@ -5,7 +5,9 @@ import java.util.List;
 import com.reference.api.models.BottleType;
 import com.reference.api.repository.BottleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -32,12 +34,13 @@ public class BottleTypeController {
             @ApiResponse(code = 200, message = "Success", response = BottleType.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public List<BottleType> bottles(
-           //    @RequestHeader(value="Authorization") String headerStr
-    ) {
+    public ResponseEntity bottles() {
         List<BottleType> bottles = (List<BottleType>) bottleTypeRepository.findAll();
-
-        return bottles;
+        if(bottles == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottles);
+        }
     }
 
     /**
@@ -51,9 +54,7 @@ public class BottleTypeController {
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a bottle type")
     public BottleType add(@RequestBody BottleType bottleType) {
-        BottleType savedBottleType =  bottleTypeRepository.save(bottleType);
-
-        return savedBottleType;
+        return bottleTypeRepository.save(bottleType);
     }
 
     /***
@@ -66,9 +67,13 @@ public class BottleTypeController {
             @ApiResponse(code = 200, message = "Success", response = BottleType.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public List<BottleType> getBottleToValidate() {
-        List<BottleType> bottles = bottleTypeRepository.findByValide(false);
-        return bottles;
+    public ResponseEntity getBottleToValidate() {
+        List<BottleType> bottlesToValidate = bottleTypeRepository.findByValide(false);
+        if(bottlesToValidate.size() == 0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottlesToValidate);
+        }
     }
 
     /***
@@ -80,9 +85,13 @@ public class BottleTypeController {
             @ApiResponse(code = 200, message = "Success", response = BottleType.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public BottleType updateBottleType(@RequestBody BottleType bottleType) {
-        BottleType bottletype = bottleTypeRepository.save(bottleType);
-        return bottletype;
+    public ResponseEntity updateBottleType(@RequestBody BottleType bottleType) {
+        BottleType bottleToUpdate = bottleTypeRepository.save(bottleType);
+        if(bottleToUpdate == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottleToUpdate);
+        }
     }
 
     /**

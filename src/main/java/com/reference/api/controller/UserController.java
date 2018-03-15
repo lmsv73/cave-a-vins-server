@@ -42,9 +42,7 @@ public class UserController {
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a user")
     public User add(@RequestBody User user) {
-        User savedUser =  userRepository.save(user);
-
-        return savedUser;
+        return userRepository.save(user);
     }
 
     /***
@@ -64,7 +62,6 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(savedUser.get(0));
         }
-
     }
 
     /**
@@ -77,9 +74,13 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public List<Bottle> bottles(@RequestParam String username) {
+    public ResponseEntity bottles(@RequestParam String username) {
         List<Bottle> bottles = bottleRepository.findByOwner(userRepository.findOneByUsername(username));
-        return bottles;
+        if(bottles.size()==0){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(bottles);
+        }
     }
 
     /**
@@ -92,12 +93,12 @@ public class UserController {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public List<Compartment> compartments(@RequestParam String username) {
+    public ResponseEntity compartments(@RequestParam String username) {
         User u = userRepository.findOneByUsername(username);
-        List<Compartment> compartments = compartmentRepository.findByOwner(u);
-        return compartments;
+        if(u == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(u);
+        }
     }
-
-
-
 }

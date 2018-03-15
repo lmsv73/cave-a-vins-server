@@ -17,13 +17,9 @@ public class BottleTypeTest {
 
     @Test
     public void should_200_On_Existing_BottleType() throws IOException, URISyntaxException {
-
         HttpUriRequest request = new HttpGet(new URL("http://localhost:" + 8080 + "/bottletype/").toURI());
-
         HttpResponse response = HttpClientBuilder.create().build().execute(request);
-
         assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_OK);
-
     }
 
 }

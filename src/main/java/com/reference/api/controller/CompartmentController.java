@@ -5,7 +5,9 @@ import java.util.List;
 import com.reference.api.models.Compartment;
 import com.reference.api.repository.CompartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -30,9 +32,7 @@ public class CompartmentController {
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a compartment")
     public Compartment add(@RequestBody Compartment compartment) {
-        Compartment savedCompartment =  compartmentRepository.save(compartment);
-
-        return savedCompartment;
+        return compartmentRepository.save(compartment);
     }
 
     /**
@@ -61,9 +61,13 @@ public class CompartmentController {
             @ApiResponse(code = 200, message = "Success", response = Compartment.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public Compartment updateCompartment(@RequestBody Compartment compartment) {
+    public ResponseEntity updateCompartment(@RequestBody Compartment compartment) {
         Compartment savedCompartment = compartmentRepository.save(compartment);
-        return savedCompartment;
+        if(savedCompartment == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(savedCompartment);
+        }
     }
 
     /**
