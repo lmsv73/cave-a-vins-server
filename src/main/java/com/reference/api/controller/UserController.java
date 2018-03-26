@@ -98,7 +98,8 @@ public class UserController {
         if(u == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(u);
+            List<Compartment> compartments = compartmentRepository.findByOwner(u);
+            return ResponseEntity.status(HttpStatus.OK).body(compartments);
         }
     }
 }

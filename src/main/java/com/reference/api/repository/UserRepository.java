@@ -1,6 +1,7 @@
 package com.reference.api.repository;
 
 
+import com.reference.api.models.Compartment;
 import com.reference.api.models.User;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
