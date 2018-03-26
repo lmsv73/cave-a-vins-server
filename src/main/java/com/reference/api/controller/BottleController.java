@@ -52,7 +52,9 @@ public class BottleController {
         BottleType bt = bottleTypeRepository.findOne(bottle.getType().getId());
         User u = userRepository.findOne(bottle.getOwner().getId());
         Bottle savedBottle =  bottleRepository.save(new Bottle(bottle.getDate(),bottle.getRegion(),u,bt,c));
-
+        // update nbBottles when creating new bottle
+        c.updateNbBottles();
+        compartmentRepository.save(c);
         return savedBottle;
     }
     /***

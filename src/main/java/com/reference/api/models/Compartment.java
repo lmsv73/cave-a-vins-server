@@ -30,6 +30,11 @@ public class Compartment {
     private User owner;
 
 
+    @Column(nullable = true)
+    @JsonProperty("nbBottles")
+    private int nbBottles;
+
+
 
     protected Compartment () {
 
@@ -99,6 +104,10 @@ public class Compartment {
     public Compartment setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
         return this;
+    }
+
+    public void updateNbBottles(){
+        this.nbBottles++;
     }
 
 

@@ -69,6 +69,8 @@ public class Application {
             compartment_repo.save(c1);
             compartment_repo.save(new Compartment("A2",u1));
             bottle_repo.save(new Bottle(new Long(14121996),"rhone alpes",u1,bt1,c1));
+            c1.updateNbBottles();
+            compartment_repo.save(c1);
 
         };
     }
