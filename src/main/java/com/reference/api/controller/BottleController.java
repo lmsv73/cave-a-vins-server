@@ -51,9 +51,7 @@ public class BottleController {
         Compartment c = compartmentRepository.findOne(bottle.getCompartment().getId());
         BottleType bt = bottleTypeRepository.findOne(bottle.getType().getId());
         User u = userRepository.findOne(bottle.getOwner().getId());
-        Bottle savedBottle =  bottleRepository.save(new Bottle(bottle.getDate(),bottle.getRegion(),u,bt,c));
-        // update nbBottles when creating new bottle
-        c.updateNbBottles();
+        Bottle savedBottle =  bottleRepository.save(new Bottle(bottle.getDate(),bottle.getRegion(),u,bt,c,bottle.getNbBottles(),bottle.getColour()));
         compartmentRepository.save(c);
         return savedBottle;
     }

@@ -75,17 +75,32 @@ public class Bottle {
     @JsonProperty("compartment")
     private Compartment compartment = null;
 
+    @Column(nullable = true)
+    @JsonProperty("nbBottles")
+    private int nbBottles;
+
+    public int getNbBottles() {
+        return nbBottles;
+    }
+
+    public void setNbBottles(int nbBottles) {
+        this.nbBottles = nbBottles;
+    }
+
     public Bottle id(Long id) {
         this.id = id;
         return this;
     }
 
-    public Bottle(Long date, String region, User owner, BottleType type, Compartment compartment) {
+    public Bottle(Long date, String region, User owner, BottleType type, Compartment compartment, int nbBottles,String colour) {
         this.date = date;
         this.setOwner(owner);
         this.region = region;
         this.setCompartment(compartment);
         this.setType(type);
+        this.nbBottles = nbBottles;
+        this.colour = colour;
+
     }
 
 
