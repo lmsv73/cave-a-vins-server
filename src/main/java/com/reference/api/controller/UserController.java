@@ -111,4 +111,24 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(compartments);
         }
     }
+
+
+    /**
+     * Fetch user's credendials
+     * @return a user
+     */
+    @RequestMapping(path="/credentials", method = RequestMethod.GET, produces = "application/json")
+    @ApiOperation(value = "Fetch all compartments of the user")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success"),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Server Error")})
+    public ResponseEntity credentials(@RequestParam String username) {
+        User u = userRepository.findOneByUsername(username);
+        if(u == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(u);
+        }
+    }
 }
