@@ -34,15 +34,28 @@ public class UserController {
     /**
      * Create a new user
      *
-     * @param user
+     * @param username
+     * @param password
      * @return savedUser
      */
     @RequestMapping(path = "/create",
             method = RequestMethod.POST,
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a user")
-    public User add(@RequestBody User user) {
-        return userRepository.save(user);
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = User.class),
+            @ApiResponse(code = 404, message = "Not Found"),
+            @ApiResponse(code = 500, message = "Server Error")})
+    public ResponseEntity<User> add(@RequestParam("username") String username, @RequestParam("password") String password) {
+        User usr = userRepository.findOneByUsername(username);
+
+        if(usr == null){
+            User u = new User(username, password);
+            userRepository.save(u);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     /***
