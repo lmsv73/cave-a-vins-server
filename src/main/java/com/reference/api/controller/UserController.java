@@ -89,11 +89,7 @@ public class UserController {
             @ApiResponse(code = 500, message = "Server Error")})
     public ResponseEntity bottles(@RequestParam String username) {
         List<Bottle> bottles = bottleRepository.findByOwner(userRepository.findOneByUsername(username));
-        if(bottles.size()==0){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(bottles);
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(bottles);
     }
 
     /**

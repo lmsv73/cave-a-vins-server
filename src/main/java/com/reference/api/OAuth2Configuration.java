@@ -97,12 +97,11 @@ public class OAuth2Configuration {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/swagger-ui.html").permitAll()
-                    .antMatchers("/**").permitAll()
-                    /*
+                    .antMatchers("/user/create").permitAll()
                     .antMatchers("/bottletype/**").authenticated()
                     .antMatchers("/bottle/**").authenticated()
                     .antMatchers("/user/**").authenticated()
-                    .antMatchers("/compartment/**").authenticated()*/
+                    .antMatchers("/compartment/**").authenticated()
 
             ;
 
