@@ -33,7 +33,7 @@ import java.nio.file.Paths;
 public class ImageController {
 
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "F://temp//";
+    private static String UPLOADED_FOLDER = "..//resources//images";
 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET,
