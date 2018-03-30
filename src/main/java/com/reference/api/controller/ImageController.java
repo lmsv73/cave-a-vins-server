@@ -36,11 +36,17 @@ public class ImageController {
     private static String UPLOADED_FOLDER = "..//resources//images";
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET,
+    /***
+     * Get uploaded images on the server
+     * @param imageName
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/{imageName}", method = RequestMethod.GET,
             produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> getImage(@PathVariable("id") String id) throws IOException {
+    public ResponseEntity<byte[]> getImage(@PathVariable("imageName") String imageName) throws IOException {
 
-        ClassPathResource imgFile = new ClassPathResource("images/" + id + ".jpg");
+        ClassPathResource imgFile = new ClassPathResource("images/" + imageName + ".jpg");
         byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
 
         return ResponseEntity
@@ -49,6 +55,12 @@ public class ImageController {
                 .body(bytes);
     }
 
+    /***
+     * Upload images on the server
+     * @param file
+     * @param redirectAttributes
+     * @return
+     */
     @RequestMapping(value= "/upload", method = RequestMethod.POST, produces = MediaType.IMAGE_JPEG_VALUE) // //new annotation since 4.3
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
