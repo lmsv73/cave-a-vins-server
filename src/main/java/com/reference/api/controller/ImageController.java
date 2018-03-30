@@ -24,8 +24,7 @@ import java.nio.file.Paths;
 public class ImageController {
 
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "images\\";
-
+    private static String UPLOADED_FOLDER = "images/";
 
     /***
      * Get uploaded images on the server
