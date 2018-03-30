@@ -1,25 +1,12 @@
 package com.reference.api.controller;
 
-import com.reference.api.models.Bottle;
-import com.reference.api.models.BottleType;
-import com.reference.api.models.Compartment;
-import com.reference.api.models.User;
-import com.reference.api.repository.BottleRepository;
-import com.reference.api.repository.BottleTypeRepository;
-import com.reference.api.repository.CompartmentRepository;
-import com.reference.api.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
