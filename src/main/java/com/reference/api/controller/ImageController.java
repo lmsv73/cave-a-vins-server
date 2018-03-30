@@ -79,7 +79,7 @@ public class ImageController {
             e.printStackTrace();
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body("You successfully uploaded");
+        return ResponseEntity.status(HttpStatus.OK).body(null);
     }
 
 }
