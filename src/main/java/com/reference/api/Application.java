@@ -68,7 +68,7 @@ public class Application {
             user_repo.save(new User("trima","asticot"));
             compartment_repo.save(c1);
             compartment_repo.save(new Compartment("A2",u1));
-            bottle_repo.save(new Bottle(new Long(14121996),"rhone alpes",u1,bt1,c1,38,"jaune"));
+            bottle_repo.save(new Bottle(new Long(14121996),"rhone alpes",u1,bt1,c1,38,"jaune","https://raw.githubusercontent.com/lmsv73/cave-a-vins-server/master/src/images/rouge-bordeaux-bordeaux-superieur-aoc-2007.jpg"));
 
             compartment_repo.save(c1);
 

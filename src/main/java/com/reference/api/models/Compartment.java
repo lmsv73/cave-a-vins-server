@@ -22,7 +22,7 @@ public class Compartment {
     private String name = null;
 
     @Column(nullable = true)
-    @JsonProperty("photoUrls")
+    @JsonProperty("photoUrl")
     @Valid
     private String photoUrl = null;
 

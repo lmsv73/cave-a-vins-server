@@ -7,3 +7,4 @@ target
 /.idea
 
 spring-swagger-api.iml
+/src/images

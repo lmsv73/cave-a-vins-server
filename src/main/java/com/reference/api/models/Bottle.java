@@ -79,6 +79,11 @@ public class Bottle {
     @JsonProperty("nbBottles")
     private int nbBottles;
 
+    @Column(nullable = true)
+    @JsonProperty("photoUrl")
+    @Valid
+    private String photoUrl = null;
+
     public int getNbBottles() {
         return nbBottles;
     }
@@ -92,7 +97,7 @@ public class Bottle {
         return this;
     }
 
-    public Bottle(Long date, String region, User owner, BottleType type, Compartment compartment, int nbBottles,String colour) {
+    public Bottle(Long date, String region, User owner, BottleType type, Compartment compartment, int nbBottles,String colour, String photoUrl) {
         this.date = date;
         this.setOwner(owner);
         this.region = region;
@@ -100,6 +105,7 @@ public class Bottle {
         this.setType(type);
         this.nbBottles = nbBottles;
         this.colour = colour;
+        this.photoUrl = photoUrl;
 
     }
 
@@ -202,8 +208,8 @@ public class Bottle {
     @ApiModelProperty(value = "")
 
 
-    public List<String> getPhotoUrls() {
-        return photoUrls;
+    public String getPhotoUrls() {
+        return photoUrl;
     }
 
     public void setPhotoUrls(List<String> photoUrls) {
