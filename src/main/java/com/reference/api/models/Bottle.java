@@ -208,7 +208,7 @@ public class Bottle {
     @ApiModelProperty(value = "")
 
 
-    public String getPhotoUrls() {
+    public String getPhotoUrl() {
         return photoUrl;
     }
 
