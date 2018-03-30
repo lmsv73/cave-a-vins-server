@@ -1,6 +1,7 @@
 package com.reference.api.controller;
 
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
@@ -49,13 +50,13 @@ public class ImageController {
      * @return
      */
     @RequestMapping(value= "/upload", method = RequestMethod.POST, produces = MediaType.MULTIPART_FORM_DATA_VALUE) // //new annotation since 4.3
-    public String singleFileUpload(@RequestParam("file") MultipartFile file,
+    public ResponseEntity<String> singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:uploadStatus";
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
 
         try {
@@ -68,14 +69,14 @@ public class ImageController {
 
             Files.write(finalPath, bytes);
 
-            redirectAttributes.addFlashAttribute("message",
+                redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return "redirect:/uploadStatus";
+        return ResponseEntity.status(HttpStatus.OK).body("You successfully uploaded");
     }
 
 }
