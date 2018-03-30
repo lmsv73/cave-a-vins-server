@@ -20,7 +20,7 @@ import java.nio.file.Paths;
 public class ImageController {
 
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "..//resources//images";
+    private static String UPLOADED_FOLDER = "..//resources//images//";
 
 
     /***
@@ -48,7 +48,7 @@ public class ImageController {
      * @param redirectAttributes
      * @return
      */
-    @RequestMapping(value= "/upload", method = RequestMethod.POST, produces = MediaType.IMAGE_JPEG_VALUE) // //new annotation since 4.3
+    @RequestMapping(value= "/upload", method = RequestMethod.POST, produces = MediaType.MULTIPART_FORM_DATA_VALUE) // //new annotation since 4.3
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 
@@ -62,8 +62,11 @@ public class ImageController {
 
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename());
-            Files.write(path, bytes);
+            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename()).toAbsolutePath();
+
+            Path finalPath = Paths.get(path.toString().replace("..","/src/main/"));
+
+            Files.write(finalPath, bytes);
 
             redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
