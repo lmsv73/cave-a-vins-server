@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +24,7 @@ import java.nio.file.Paths;
 public class ImageController {
 
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "..//resources//images//";
+    private static String UPLOADED_FOLDER = "images\\";
 
 
     /***
@@ -34,8 +37,10 @@ public class ImageController {
             produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getImage(@PathVariable("imageName") String imageName) throws IOException {
 
-        ClassPathResource imgFile = new ClassPathResource("images/" + imageName + ".jpg");
-        byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
+
+        File file = new File(UPLOADED_FOLDER + imageName + ".jpg");
+        InputStream targetStream = new FileInputStream(file);
+        byte[] bytes = StreamUtils.copyToByteArray(targetStream);
 
         return ResponseEntity
                 .ok()
@@ -65,9 +70,7 @@ public class ImageController {
             byte[] bytes = file.getBytes();
             Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename()).toAbsolutePath();
 
-            Path finalPath = Paths.get(path.toString().replace("..","/src/main/"));
-
-            Files.write(finalPath, bytes);
+            Files.write(path, bytes);
 
                 redirectAttributes.addFlashAttribute("message",
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
