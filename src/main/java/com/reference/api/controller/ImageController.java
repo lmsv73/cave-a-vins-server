@@ -1,25 +1,12 @@
 package com.reference.api.controller;
 
-import com.reference.api.models.Bottle;
-import com.reference.api.models.BottleType;
-import com.reference.api.models.Compartment;
-import com.reference.api.models.User;
-import com.reference.api.repository.BottleRepository;
-import com.reference.api.repository.BottleTypeRepository;
-import com.reference.api.repository.CompartmentRepository;
-import com.reference.api.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -36,11 +23,17 @@ public class ImageController {
     private static String UPLOADED_FOLDER = "..//resources//images";
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET,
+    /***
+     * Get uploaded images on the server
+     * @param imageName
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/{imageName}", method = RequestMethod.GET,
             produces = MediaType.IMAGE_JPEG_VALUE)
-    public ResponseEntity<byte[]> getImage(@PathVariable("id") String id) throws IOException {
+    public ResponseEntity<byte[]> getImage(@PathVariable("imageName") String imageName) throws IOException {
 
-        ClassPathResource imgFile = new ClassPathResource("images/" + id + ".jpg");
+        ClassPathResource imgFile = new ClassPathResource("images/" + imageName + ".jpg");
         byte[] bytes = StreamUtils.copyToByteArray(imgFile.getInputStream());
 
         return ResponseEntity
@@ -49,6 +42,12 @@ public class ImageController {
                 .body(bytes);
     }
 
+    /***
+     * Upload images on the server
+     * @param file
+     * @param redirectAttributes
+     * @return
+     */
     @RequestMapping(value= "/upload", method = RequestMethod.POST, produces = MediaType.IMAGE_JPEG_VALUE) // //new annotation since 4.3
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
