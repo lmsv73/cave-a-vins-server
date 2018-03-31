@@ -99,4 +99,15 @@ public class BottleController {
 
         return bottleRepository.save(b);
     }
+
+    /**
+     * Deletes bottle by id
+     * @param id
+     */
+    @RequestMapping(path = "/delete/{id}",
+            method = RequestMethod.DELETE)
+    @ApiOperation(value = "Delete a bottle")
+    public void delete(@PathVariable Long id) {
+        bottleRepository.delete(id);
+    }
 }
