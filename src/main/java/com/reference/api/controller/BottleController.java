@@ -55,6 +55,7 @@ public class BottleController {
         compartmentRepository.save(c);
         return savedBottle;
     }
+
     /***
      * Get a bottle by id
      */
@@ -72,5 +73,30 @@ public class BottleController {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(bottle);
         }
+    }
+
+    /**
+     * Update an existing bottle
+     *
+     * @param bottle
+     * @return savedBottle
+     */
+    @RequestMapping(path = "/update",
+            method = RequestMethod.POST,
+            consumes =  MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Update an existing bottle")
+    public Bottle update(@RequestBody Bottle bottle) {
+        Bottle b = bottleRepository.findOne(bottle.getId());
+
+        b.id(bottle.getId());
+        b.colour(bottle.getColour());
+        b.type(bottle.getType());
+        b.region(bottle.getRegion());
+        b.compartment(bottle.getCompartment());
+        b.date(bottle.getDate());
+
+        bottleRepository.delete(bottle.getId());
+
+        return bottleRepository.save(b);
     }
 }
