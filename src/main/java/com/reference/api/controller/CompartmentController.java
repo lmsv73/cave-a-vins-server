@@ -38,7 +38,7 @@ public class CompartmentController {
     public Compartment add(@RequestBody Compartment compartment) {
         User u = userRepository.findOne(compartment.getOwner().getId());
 
-        return compartmentRepository.save(new Compartment(compartment.getName(), u));
+        return compartmentRepository.save(new Compartment(compartment.getName(), u, compartment.getPhotoUrl()));
     }
 
     /**

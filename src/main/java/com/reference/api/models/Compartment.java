@@ -36,10 +36,16 @@ public class Compartment {
     protected Compartment () {
 
     }
+
     public Compartment (String name, User user) {
         this.name = name;
         this.owner = user;
+    }
 
+    public Compartment (String name, User user, String photoUrl) {
+        this.name = name;
+        this.owner = user;
+        this.photoUrl = photoUrl;
     }
 
     public Compartment id(Long id) {
