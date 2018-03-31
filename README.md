@@ -1,7 +1,7 @@
 # SpringBoot-Swagger Rest API (school project)
 
 ## Overview
-This project is using a [https://github.com/afajem/spring-swagger-api](boilerplate)
+This project is using a [boilerplate](https://github.com/afajem/spring-swagger-api)
 
 
 ## Technologies
