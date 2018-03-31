@@ -3,7 +3,9 @@ package com.reference.api.controller;
 import java.util.List;
 
 import com.reference.api.models.Compartment;
+import com.reference.api.models.User;
 import com.reference.api.repository.CompartmentRepository;
+import com.reference.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +22,8 @@ import io.swagger.annotations.ApiResponses;
 public class CompartmentController {
     @Autowired
     private CompartmentRepository compartmentRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Create a new compartment
@@ -32,7 +36,9 @@ public class CompartmentController {
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a compartment")
     public Compartment add(@RequestBody Compartment compartment) {
-        return compartmentRepository.save(compartment);
+        User u = userRepository.findOne(compartment.getOwner().getId());
+
+        return compartmentRepository.save(new Compartment(compartment.getName(), u));
     }
 
     /**

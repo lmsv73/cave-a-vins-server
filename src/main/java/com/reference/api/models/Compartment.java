@@ -87,6 +87,10 @@ public class Compartment {
         return this;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+
     /**
      * Get photoUrls
      * @return photoUrls
