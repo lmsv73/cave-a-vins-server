@@ -7,6 +7,7 @@ import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -98,6 +99,9 @@ public class OAuth2Configuration {
                     .authorizeRequests()
                     .antMatchers("/swagger-ui.html").permitAll()
                     .antMatchers("/user/create").permitAll()
+                    .antMatchers(HttpMethod.GET,"/bottletype/**").authenticated()
+                    .antMatchers(HttpMethod.POST,"/bottletype/**").hasAuthority("ADMIN_ROLE")
+                    .antMatchers(HttpMethod.DELETE,"/bottletype/**").hasAuthority("ADMIN_ROLE")
                     .antMatchers("/bottletype/**").authenticated()
                     .antMatchers("/bottle/**").authenticated()
                     .antMatchers("/user/**").authenticated()

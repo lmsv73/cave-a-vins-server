@@ -6,10 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 @Entity
 public class User implements UserDetails {
     @Id
@@ -30,6 +28,15 @@ public class User implements UserDetails {
 
     @OneToMany(targetEntity = Compartment.class, cascade = CascadeType.ALL)
     private List<Compartment> compartmentsList;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
     public User id(Long id) {
         this.id = id;
@@ -123,6 +130,14 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles){
+        this.roles = roles;
     }
 
 
