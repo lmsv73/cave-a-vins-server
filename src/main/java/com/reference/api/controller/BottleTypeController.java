@@ -24,7 +24,7 @@ public class BottleTypeController {
     private BottleTypeRepository bottleTypeRepository;
 
     /**
-     * Fetch a list of bottle type
+     * Fetch a list of bottle type that are validated
      * @return a list of bottle type
      */
     @RequestMapping(path="/", method = RequestMethod.GET, produces = "application/json")
@@ -35,7 +35,7 @@ public class BottleTypeController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
     public ResponseEntity bottles() {
-        List<BottleType> bottles = (List<BottleType>) bottleTypeRepository.findAll();
+        List<BottleType> bottles = (List<BottleType>) bottleTypeRepository.findByValide(true);
         if(bottles == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
