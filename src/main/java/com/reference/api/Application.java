@@ -78,7 +78,7 @@ public class Application {
             user_repo.save(u2);
             compartment_repo.save(c1);
             compartment_repo.save(new Compartment("A2",u1));
-            bottle_repo.save(new Bottle(new Long(14121996),"rhone alpes",u1,bt1,c1,38,"jaune","http://localhost:8080/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
+            bottle_repo.save(new Bottle(new Long(1957),"rhone alpes",u1,bt1,c1,38,"jaune","http://localhost:8080/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
 
             compartment_repo.save(c1);
 
