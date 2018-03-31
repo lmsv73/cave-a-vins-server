@@ -54,12 +54,6 @@ public class Bottle {
     @JsonProperty("colour")
     private String colour = null;
 
-    @Column(nullable = true)
-    @ElementCollection(targetClass=String.class)
-    @JsonIgnore
-    @Valid
-    private List<String> photoUrls = new ArrayList<>();
-
     @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
     @Type(type="user")
     @JsonProperty("owner")
@@ -188,22 +182,9 @@ public class Bottle {
         this.colour = colour;
     }
 
-    public Bottle photoUrls(List<String> photoUrls) {
-        this.photoUrls = photoUrls;
-        return this;
-    }
-
-    public Bottle addPhotoUrlsItem(String photoUrlsItem) {
-        if (this.photoUrls == null) {
-            this.photoUrls = new ArrayList<String>();
-        }
-        this.photoUrls.add(photoUrlsItem);
-        return this;
-    }
-
     /**
-     * Get photoUrls
-     * @return photoUrls
+     * Get photoUrl
+     * @return photoUrl
      **/
     @ApiModelProperty(value = "")
 
@@ -293,7 +274,7 @@ public class Bottle {
                 Objects.equals(this.date, bottle.date) &&
                 Objects.equals(this.region, bottle.region) &&
                 Objects.equals(this.colour, bottle.colour) &&
-                Objects.equals(this.photoUrls, bottle.photoUrls) &&
+                Objects.equals(this.photoUrl, bottle.photoUrl) &&
                 Objects.equals(this.owner, bottle.owner) &&
                 Objects.equals(this.type, bottle.type) &&
                 Objects.equals(this.compartment, bottle.compartment);
@@ -301,7 +282,7 @@ public class Bottle {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, region, colour, photoUrls, owner, type, compartment);
+        return Objects.hash(id, date, region, colour, photoUrl, owner, type, compartment);
     }
 
     @Override
@@ -313,7 +294,7 @@ public class Bottle {
         sb.append("    date: ").append(toIndentedString(date)).append("\n");
         sb.append("    region: ").append(toIndentedString(region)).append("\n");
         sb.append("    colour: ").append(toIndentedString(colour)).append("\n");
-        sb.append("    photoUrls: ").append(toIndentedString(photoUrls)).append("\n");
+        sb.append("    photoUrl: ").append(toIndentedString(photoUrl)).append("\n");
         sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");
         sb.append("    compartment: ").append(toIndentedString(compartment)).append("\n");

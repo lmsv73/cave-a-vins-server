@@ -87,7 +87,7 @@ public class BottleController {
     @ApiOperation(value = "Update an existing bottle")
     public Bottle update(@RequestBody Bottle bottle) {
         Bottle b = bottleRepository.findOne(bottle.getId());
-        System.out.println(bottle.getId());
+
         b.id(bottle.getId());
         b.colour(bottle.getColour());
         b.type(bottle.getType());

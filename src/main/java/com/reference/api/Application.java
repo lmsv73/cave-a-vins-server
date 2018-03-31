@@ -65,23 +65,28 @@ public class Application {
             Role userRole = roleRepository.findByName("USER_ROLE");
 
             BottleType bt1 = (new BottleType("Bordeaux supérieur",true));
+            BottleType bt2 = new BottleType("saumur-champigny",true);
+            BottleType bt3 = new BottleType("sainte-croix-du-mont",true);
+            BottleType bt4 = new BottleType("vacqueyras",true);
             bottletype_repo.save(bt1);
-            bottletype_repo.save(new BottleType("saumur-champigny",true));
-            bottletype_repo.save(new BottleType("sainte-croix-du-mont",true));
-            bottletype_repo.save(new BottleType("vacqueyras",true));
+            bottletype_repo.save(bt2);
+            bottletype_repo.save(bt3);
+            bottletype_repo.save(bt4);
+
             User u1 = new User("ludo","asticot");
             User u2 = new User("trima","asticot");
-            u1.setRoles(Arrays.asList(adminRole));
-            u2.setRoles(Arrays.asList(userRole));
-            Compartment c1 = new Compartment("A1",u1);
             user_repo.save(u1);
             user_repo.save(u2);
-            compartment_repo.save(c1);
-            compartment_repo.save(new Compartment("A2",u1));
-            bottle_repo.save(new Bottle(new Long(1957),"rhone alpes",u1,bt1,c1,38,"jaune","http://localhost:8080/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
 
-            compartment_repo.save(c1);
+            u1.setRoles(Arrays.asList(adminRole));
+            u2.setRoles(Arrays.asList(userRole));
 
+            Compartment c1 = new Compartment("A1",u1);
+            Compartment c2 = new Compartment("A2",u1);
+            compartment_repo.save(c1);
+            compartment_repo.save(c2);
+
+            bottle_repo.save(new Bottle(new Long(1957),"rhone alpes",u1,bt1,c2,38,"jaune","http://localhost:8080/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
         };
     }
 
