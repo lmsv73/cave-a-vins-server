@@ -64,11 +64,11 @@ public class Application {
             Role adminRole = roleRepository.findByName("ADMIN_ROLE");
             Role userRole = roleRepository.findByName("USER_ROLE");
 
-            BottleType bt1 = (new BottleType("Bordeaux supérieur",false));
+            BottleType bt1 = (new BottleType("Bordeaux supérieur",true));
             bottletype_repo.save(bt1);
             bottletype_repo.save(new BottleType("saumur-champigny",true));
-            bottletype_repo.save(new BottleType("sainte-croix-du-mont",false));
-            bottletype_repo.save(new BottleType("vacqueyras",false));
+            bottletype_repo.save(new BottleType("sainte-croix-du-mont",true));
+            bottletype_repo.save(new BottleType("vacqueyras",true));
             User u1 = new User("ludo","asticot");
             User u2 = new User("trima","asticot");
             u1.setRoles(Arrays.asList(adminRole));
