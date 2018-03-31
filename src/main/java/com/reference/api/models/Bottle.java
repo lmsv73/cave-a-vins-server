@@ -212,8 +212,8 @@ public class Bottle {
         return photoUrl;
     }
 
-    public void setPhotoUrls(List<String> photoUrls) {
-        this.photoUrls = photoUrls;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public Bottle owner(User owner) {
