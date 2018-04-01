@@ -67,13 +67,14 @@ public class CompartmentController {
             @ApiResponse(code = 200, message = "Success", response = Compartment.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public ResponseEntity updateCompartment(@RequestBody Compartment compartment) {
-        Compartment savedCompartment = compartmentRepository.save(compartment);
-        if(savedCompartment == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(savedCompartment);
-        }
+    public Compartment updateCompartment(@RequestBody Compartment compartment) {
+        Compartment c = compartmentRepository.findOne(compartment.getId());
+
+        c.id(compartment.getId());
+        c.name(compartment.getName());
+        c.photoUrl(compartment.getPhotoUrl());
+
+        return compartmentRepository.save(c);
     }
 
     /**
