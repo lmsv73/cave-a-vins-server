@@ -75,11 +75,15 @@ public class Application {
 
             User u1 = new User("ludo","asticot");
             User u2 = new User("trima","asticot");
+            User u3 = new User("admin", "admin");
+
+            u1.setRoles(Arrays.asList(userRole));
+            u2.setRoles(Arrays.asList(userRole));
+            u3.setRoles(Arrays.asList(adminRole));
+
             user_repo.save(u1);
             user_repo.save(u2);
-
-            u1.setRoles(Arrays.asList(adminRole));
-            u2.setRoles(Arrays.asList(userRole));
+            user_repo.save(u3);
 
             Compartment c1 = new Compartment("A1",u1);
             Compartment c2 = new Compartment("A2",u1);
