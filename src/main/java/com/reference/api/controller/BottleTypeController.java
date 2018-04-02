@@ -59,20 +59,20 @@ public class BottleTypeController {
 
     /***
      *
-     * Get the list of the bottle types that aren't validated yet
+     * Get all bottleTypes
      */
-    @RequestMapping(path="/getBottleToValidate", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(path="/all", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "Get the list of the bottle types that aren't validated yet")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = BottleType.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
     public ResponseEntity getBottleToValidate() {
-        List<BottleType> bottlesToValidate = bottleTypeRepository.findByValide(false);
-        if(bottlesToValidate.size() == 0){
+        List<BottleType> bottlesTypes = bottleTypeRepository.findAll();
+        if(bottlesTypes.size() == 0){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(bottlesToValidate);
+            return ResponseEntity.status(HttpStatus.OK).body(bottlesTypes);
         }
     }
 

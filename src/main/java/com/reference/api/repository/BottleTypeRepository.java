@@ -8,5 +8,6 @@ import java.util.List;
 public interface BottleTypeRepository extends PagingAndSortingRepository<BottleType, Long> {
 
     List<BottleType> findByValide(Boolean valide);
+    List<BottleType> findAll();
 
 }

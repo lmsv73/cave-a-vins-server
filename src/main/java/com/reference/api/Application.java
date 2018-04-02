@@ -67,7 +67,7 @@ public class Application {
             BottleType bt1 = (new BottleType("Bordeaux supérieur",true));
             BottleType bt2 = new BottleType("saumur-champigny",true);
             BottleType bt3 = new BottleType("sainte-croix-du-mont",true);
-            BottleType bt4 = new BottleType("vacqueyras",true);
+            BottleType bt4 = new BottleType("vacqueyras",false);
             bottletype_repo.save(bt1);
             bottletype_repo.save(bt2);
             bottletype_repo.save(bt3);
