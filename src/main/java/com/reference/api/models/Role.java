@@ -1,7 +1,5 @@
 package com.reference.api.models;
 
-import netscape.security.Privilege;
-
 import javax.persistence.*;
 import java.util.Collection;
 
