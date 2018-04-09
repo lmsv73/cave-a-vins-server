@@ -1,15 +1,12 @@
 package com.reference.api.controller;
 
-import java.util.List;
 
 import com.reference.api.models.Compartment;
 import com.reference.api.models.User;
 import com.reference.api.repository.CompartmentRepository;
 import com.reference.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -54,8 +51,7 @@ public class CompartmentController {
     @ApiOperation(value = "Upload an image for the compartment")
     public Compartment uploadImage(@RequestParam String url, @PathVariable("compartmentId") Long id) {
         Compartment tmpCompartment = compartmentRepository.findOne(id);
-        Compartment savedCompartment =  compartmentRepository.save(tmpCompartment.setPhotoUrl(url));
-        return savedCompartment;
+        return compartmentRepository.save(tmpCompartment.setPhotoUrl(url));
     }
 
     /***

@@ -25,7 +25,6 @@ public class UserService implements UserDetailsService {
         User u = userRepository.findOneByUsername(username);
 
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        Collection<Role> roles = u.getRoles();
         for (Role role : u.getRoles()) {
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName());
             grantedAuthorities.add(grantedAuthority);

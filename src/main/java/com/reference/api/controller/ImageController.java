@@ -1,6 +1,5 @@
 package com.reference.api.controller;
 
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ import java.nio.file.Paths;
 public class ImageController {
 
     //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "images/";
+    private static String uploadedFolder = "images/";
 
     /***
      * Get uploaded images on the server
@@ -37,7 +36,7 @@ public class ImageController {
     public ResponseEntity<byte[]> getImage(@PathVariable("imageName") String imageName) throws IOException {
 
 
-        File file = new File(UPLOADED_FOLDER + imageName + ".jpg");
+        File file = new File(uploadedFolder + imageName + ".jpg");
         InputStream targetStream = new FileInputStream(file);
         byte[] bytes = StreamUtils.copyToByteArray(targetStream);
 
@@ -67,7 +66,7 @@ public class ImageController {
 
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
-            Path path = Paths.get(UPLOADED_FOLDER + file.getOriginalFilename()).toAbsolutePath();
+            Path path = Paths.get(uploadedFolder + file.getOriginalFilename()).toAbsolutePath();
 
             Files.write(path, bytes);
 
@@ -75,7 +74,7 @@ public class ImageController {
                     "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            // we do nothing atm
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(null);

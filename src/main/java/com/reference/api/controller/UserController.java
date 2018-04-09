@@ -70,7 +70,7 @@ public class UserController {
             @ApiResponse(code = 500, message = "Server Error")})
     public ResponseEntity<User> login(@RequestParam("username") String username, @RequestParam("password") String password){
         List<User> savedUser = userRepository.findByUsernameAndPassword(username,password);
-        if(savedUser.size()==0){
+        if(savedUser.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(savedUser.get(0));

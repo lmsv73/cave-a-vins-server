@@ -1,7 +1,6 @@
 package com.reference.api.models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Proxy;
@@ -11,8 +10,6 @@ import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 @Proxy(lazy = false)
 @Entity
@@ -44,7 +41,7 @@ public class Bottle {
 
     @Column(nullable = false)
     @JsonProperty("date")
-    private Long date = null;
+    private int date = 0;
 
     @Column(nullable = false)
     @JsonProperty("region")
@@ -91,7 +88,7 @@ public class Bottle {
         return this;
     }
 
-    public Bottle(Long date, String region, User owner, BottleType type, Compartment compartment, int nbBottles,String colour, String photoUrl) {
+    public Bottle(int date, String region, User owner, BottleType type, Compartment compartment, int nbBottles,String colour, String photoUrl) {
         this.date = date;
         this.setOwner(owner);
         this.region = region;
@@ -122,7 +119,7 @@ public class Bottle {
         this.id = id;
     }
 
-    public Bottle date(Long date) {
+    public Bottle date(int date) {
         this.date = date;
         return this;
     }
@@ -134,11 +131,11 @@ public class Bottle {
     @ApiModelProperty(value = "")
 
 
-    public Long getDate() {
+    public int getDate() {
         return date;
     }
 
-    public void setDate(Long date) {
+    public void setDate(int date) {
         this.date = date;
     }
 

@@ -35,7 +35,7 @@ public class BottleTypeController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
     public ResponseEntity bottles() {
-        List<BottleType> bottles = (List<BottleType>) bottleTypeRepository.findByValide(true);
+        List<BottleType> bottles = bottleTypeRepository.findByValide(true);
         if(bottles == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
@@ -69,7 +69,7 @@ public class BottleTypeController {
             @ApiResponse(code = 500, message = "Server Error")})
     public ResponseEntity getBottleToValidate() {
         List<BottleType> bottlesTypes = bottleTypeRepository.findAll();
-        if(bottlesTypes.size() == 0){
+        if(bottlesTypes.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(bottlesTypes);

@@ -23,13 +23,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import javax.sql.DataSource;
 
 
 @Configuration
 public class OAuth2Configuration {
 
-    private static final String RESOURCE_ID = "restservice";
 
     @Configuration
     @EnableAuthorizationServer
@@ -102,7 +100,6 @@ public class OAuth2Configuration {
                     .antMatchers("/bottletype/**").authenticated()
                     .antMatchers(HttpMethod.POST,"/bottletype/getBottleToValidate","/bottletype/update").hasAuthority("ADMIN_ROLE")
                     .antMatchers(HttpMethod.DELETE,"/bottletype/**").hasAuthority("ADMIN_ROLE")
-                    .antMatchers("/bottletype/**").authenticated()
                     .antMatchers("/bottle/**").authenticated()
                     .antMatchers("/user/**").authenticated()
                     .antMatchers("/compartment/**").authenticated()
