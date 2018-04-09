@@ -13,89 +13,10 @@ import org.springframework.web.servlet.config.annotation.*;
 import java.util.List;
 
 @Configuration
-public class WebConfig implements WebMvcConfigurer {
-    @Override
-    public void addFormatters(FormatterRegistry formatterRegistry) {
-
-    }
-
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> list) {
-
-    }
-
-    @Override
-    public void extendMessageConverters(List<HttpMessageConverter<?>> list) {
-
-    }
-
-    @Override
-    public Validator getValidator() {
-        return null;
-    }
-
-    @Override
-    public void configureContentNegotiation(ContentNegotiationConfigurer contentNegotiationConfigurer) {
-
-    }
-
-    @Override
-    public void configureAsyncSupport(AsyncSupportConfigurer asyncSupportConfigurer) {
-
-    }
-
-    @Override
-    public void configurePathMatch(PathMatchConfigurer pathMatchConfigurer) {
-
-    }
-
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> list) {
-
-    }
-
-    @Override
-    public void addReturnValueHandlers(List<HandlerMethodReturnValueHandler> list) {
-
-    }
-
-    @Override
-    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> list) {
-
-    }
-
-    @Override
-    public void addInterceptors(InterceptorRegistry interceptorRegistry) {
-
-    }
-
-    @Override
-    public MessageCodesResolver getMessageCodesResolver() {
-        return null;
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry viewControllerRegistry) {
-
-    }
-
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry viewResolverRegistry) {
-
-    }
+public abstract class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/images/**").addResourceLocations("file:images/");
-    }
-
-    @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer defaultServletHandlerConfigurer) {
-
-    }
-
-    @Override
-    public void addCorsMappings(CorsRegistry corsRegistry) {
-
     }
 }
