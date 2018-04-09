@@ -68,7 +68,7 @@ public class CompartmentController {
 
         c.id(compartment.getId());
         c.name(compartment.getName());
-        c.photoUrl(compartment.getPhotoUrl());
+        c.setPhotoUrl(compartment.getPhotoUrl());
 
         return compartmentRepository.save(c);
     }
