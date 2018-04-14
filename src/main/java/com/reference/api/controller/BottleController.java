@@ -51,7 +51,7 @@ public class BottleController {
         Compartment c = compartmentRepository.findOne(bottle.getCompartment().getId());
         BottleType bt = bottleTypeRepository.findOne(bottle.getType().getId());
         User u = userRepository.findOne(bottle.getOwner().getId());
-        Bottle savedBottle =  bottleRepository.save(new Bottle(bottle.getDate(),bottle.getRegion(),u,bt,c,bottle.getNbBottles(),bottle.getColour(),bottle.getPhotoUrl()));
+        Bottle savedBottle =  bottleRepository.save(new Bottle(u, bt, c, bottle.getNbBottles(), bottle.getPhotoUrl()));
         compartmentRepository.save(c);
         return savedBottle;
     }
@@ -89,11 +89,8 @@ public class BottleController {
         Bottle b = bottleRepository.findOne(bottle.getId());
 
         b.id(bottle.getId());
-        b.colour(bottle.getColour());
         b.type(bottle.getType());
-        b.region(bottle.getRegion());
         b.compartment(bottle.getCompartment());
-        b.date(bottle.getDate());
         b.setNbBottles(bottle.getNbBottles());
         b.setPhotoUrl(bottle.getPhotoUrl());
 

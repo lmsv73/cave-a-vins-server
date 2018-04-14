@@ -64,10 +64,11 @@ public class Application {
             Role adminRole = roleRepository.findByName("ADMIN_ROLE");
             Role userRole = roleRepository.findByName("USER_ROLE");
 
-            BottleType bt1 = (new BottleType("Bordeaux supérieur",true));
-            BottleType bt2 = new BottleType("saumur-champigny",true);
-            BottleType bt3 = new BottleType("sainte-croix-du-mont",true);
-            BottleType bt4 = new BottleType("vacqueyras",false);
+            BottleType bt1 = new BottleType("Bordeaux supérieur", 1987,"Bordeaux", "rouge", true);
+            BottleType bt2 = new BottleType("Saumur-champigny", 1962,"Anjou", "rouge", true);
+            BottleType bt3 = new BottleType("Sainte-croix-du-mont", 1999,"Entre-deux-Mers", "blanc", true);
+            BottleType bt4 = new BottleType("Vacqueyras", 2010," vallée du Rhône méridionale", "rouge", false);
+
             bottleTypeRepository.save(bt1);
             bottleTypeRepository.save(bt2);
             bottleTypeRepository.save(bt3);
@@ -91,9 +92,8 @@ public class Application {
             compartmentRepository.save(c2);
 
 
-            bottleRepository.save(new Bottle(1957,"rhone alpes",u1,bt1,c2,38,"jaune","http://localhost:8080/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
+            bottleRepository.save(new Bottle(u1, bt1, c2,38,"http://localhost:8080/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
         };
     }
-
 
 }

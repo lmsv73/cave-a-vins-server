@@ -94,7 +94,7 @@ public class BottleTypeTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        BottleType obj = new BottleType("blabla",true);
+        BottleType obj = new BottleType("blabla", 1850,"Rhone", "rouge",true);
         obj.setId(Integer.toUnsignedLong(1));
 
         request.setEntity(new StringEntity(mapper.writeValueAsString(obj), "UTF-8"));
