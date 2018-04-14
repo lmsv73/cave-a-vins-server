@@ -104,7 +104,7 @@ public class OAuth2Configuration {
                     .antMatchers("/user/**").authenticated()
                     .antMatchers("/compartment/**").authenticated()
                     .antMatchers("/regions/**").authenticated()
-                    .antMatchers("/images/**").authenticated()
+                    .antMatchers(HttpMethod.POST, "/images/**").authenticated()
 
             ;
 
