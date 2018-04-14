@@ -23,11 +23,6 @@ public class User implements UserDetails {
     @JsonProperty("password")
     private String password = null;
 
-    @OneToMany(targetEntity = Bottle.class,cascade = CascadeType.ALL)
-    private List<Bottle> bottlelist;
-
-    @OneToMany(targetEntity = Compartment.class, cascade = CascadeType.ALL)
-    private List<Compartment> compartmentsList;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

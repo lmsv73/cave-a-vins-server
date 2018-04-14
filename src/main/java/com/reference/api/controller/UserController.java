@@ -1,12 +1,15 @@
 package com.reference.api.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.reference.api.models.Bottle;
 import com.reference.api.models.Compartment;
 import com.reference.api.models.User;
+import com.reference.api.models.Role;
 import com.reference.api.repository.BottleRepository;
 import com.reference.api.repository.CompartmentRepository;
+import com.reference.api.repository.RoleRepository;
 import com.reference.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +33,8 @@ public class UserController {
     private BottleRepository bottleRepository;
     @Autowired
     private CompartmentRepository compartmentRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     /**
      * Create a new user
@@ -50,7 +55,9 @@ public class UserController {
         User usr = userRepository.findOneByUsername(username);
 
         if(usr == null){
+            Role rl = roleRepository.findByName("USER_ROLE");
             User u = new User(username, password);
+            u.setRoles(Arrays.asList(rl));
             userRepository.save(u);
             return ResponseEntity.status(HttpStatus.OK).body(null);
         } else {
