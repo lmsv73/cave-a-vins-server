@@ -103,6 +103,8 @@ public class OAuth2Configuration {
                     .antMatchers("/bottle/**").authenticated()
                     .antMatchers("/user/**").authenticated()
                     .antMatchers("/compartment/**").authenticated()
+                    .antMatchers("/regions/**").authenticated()
+                    .antMatchers("/images/**").authenticated()
 
             ;
 
