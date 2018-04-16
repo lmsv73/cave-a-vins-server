@@ -30,9 +30,6 @@ public class RegionController {
         BufferedReader in = new BufferedReader(new FileReader(file));
         List<String> regions = in .lines() .distinct().collect(Collectors.toList());
 
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.writeValue(System.out, regions);
-
         return ResponseEntity
                 .ok()
                 .body(regions);
