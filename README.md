@@ -1,4 +1,5 @@
-# :wine_glass: SpringBoot-Swagger Rest API (school project)
+# :wine_glass: SpringBoot-Swagger Rest API 
+This is a school project for the course INFO806 Integration Continu given by [Guillaume Jambet](https://github.com/gjambet)
 
 REST Api to manage your wine cellar :wine_glass:
 
