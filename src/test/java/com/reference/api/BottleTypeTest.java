@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -30,7 +31,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class BottleTypeTest {
 
-    /*
+
+    /***
+     * Problem : https://stackoverflow.com/questions/49887730/spring-boot-oauth2-403-forbidden-when-oauth-token-in-integration-test
+     * @param username
+     * @param password
+     * @return
+     * @throws Exception
+     */
     private String obtainAccessToken(String username, String password) throws Exception {
 
         ArrayList<NameValuePair> params;
@@ -46,30 +54,17 @@ public class BottleTypeTest {
         request.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
 
 
-        request.setHeader("Authorization", "Basic Z2lneTpzZWNyZXQ=");
+        request.setHeader(new BasicHeader("Authorization", "Basic Z2lneTpzZWNyZXQ="));
         request.setHeader("Content-type", "application/x-www-form-urlencoded");
 
+        System.out.println("executing request " + request.getRequestLine());
         HttpResponse response = HttpClientBuilder.create().build().execute(request);
 
         String test = response.getEntity().getContent().toString();
 
         JacksonJsonParser jsonParser = new JacksonJsonParser();
         return jsonParser.parseMap(response.getEntity().getContent().toString()).get("access_token").toString();
-
-
-        ResultActions result
-                = mockMvc.perform(post("/oauth/token")
-                .params(params)
-                .with(httpBasic("fooClientIdPassword","secret"))
-                .accept("application/json;charset=UTF-8"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/json;charset=UTF-8"));
-
-        String resultString = result.andReturn().getResponse().getContentAsString();
-
-        JacksonJsonParser jsonParser = new JacksonJsonParser();
-        return jsonParser.parseMap(resultString).get("access_token").toString();
-    }*/
+    }
 
     @Test
     public void should_200_On_Existing_BottleType() throws IOException, URISyntaxException {
@@ -86,7 +81,8 @@ public class BottleTypeTest {
     }
 
     @Test
-    public void should_200_On_Updating_BottleType() throws IOException, URISyntaxException {
+    public void should_200_On_Updating_BottleType() throws IOException, URISyntaxException, Exception {
+        String token = obtainAccessToken("ludo","asticot");
         HttpPost request = new HttpPost(new URL("http://localhost:" + 8080 + "/bottletype/update/").toURI());
 
         request.setHeader("Accept", "application/json");
