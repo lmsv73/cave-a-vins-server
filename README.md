@@ -28,4 +28,4 @@ To view the H2 Database [http://localhost:8080/h2console/](http://localhost:8080
 
 ## API Endpoints
 
-![api-swagger-documentation](https://raw.githubusercontent.com/lmsv73/cave-a-vins-server/master/API_denpoints.png "Swagger Documentation")
+![api-swagger-documentation](https://raw.githubusercontent.com/lmsv73/cave-a-vins-server/master/API_endpoints.png "Swagger Documentation")
