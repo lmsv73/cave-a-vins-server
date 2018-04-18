@@ -96,7 +96,7 @@ public class OAuth2Configuration {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/swagger-ui.html").permitAll()
-                    .antMatchers("/api/user/create").permitAll()
+                    .antMatchers("/api/user/").permitAll()
                     .antMatchers("/api/bottletype/**").authenticated()
                     .antMatchers(HttpMethod.POST,"/api/bottletype/getBottleToValidate","/api/bottletype/update").hasAuthority("ADMIN_ROLE")
                     .antMatchers(HttpMethod.DELETE,"/api/bottletype/**").hasAuthority("ADMIN_ROLE")

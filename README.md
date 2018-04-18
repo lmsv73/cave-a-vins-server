@@ -25,3 +25,7 @@ To run the project:
 To view the generated Swagger UI documentation go to: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 To view the H2 Database [http://localhost:8080/h2console/](http://localhost:8080/h2console/)
+
+## API Endpoints
+
+![api-swagger-documentation](https://raw.githubusercontent.com/lmsv73/cave-a-vins-server/master/API_denpoints.png "Swagger Documentation")
