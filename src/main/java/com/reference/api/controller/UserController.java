@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiResponses;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -43,7 +43,7 @@ public class UserController {
      * @param password
      * @return savedUser
      */
-    @RequestMapping(path = "/create",
+    @RequestMapping(path = "/",
             method = RequestMethod.POST,
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a user")
@@ -62,25 +62,6 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(null);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
-
-    /***
-     * User login
-     */
-    @RequestMapping(path = "/login" ,
-            method = RequestMethod.GET )
-    @ApiOperation(value = "Login a user")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = User.class),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Server Error")})
-    public ResponseEntity<User> login(@RequestParam("username") String username, @RequestParam("password") String password){
-        List<User> savedUser = userRepository.findByUsernameAndPassword(username,password);
-        if(savedUser.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(savedUser.get(0));
         }
     }
 

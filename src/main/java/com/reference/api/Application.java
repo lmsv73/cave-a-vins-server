@@ -36,7 +36,7 @@ public class Application {
                 .groupName("spring-swagger-api")
                 .apiInfo(apiInfo())
                 .select()
-                .paths(regex ("/*.*"))
+                .paths(regex ("/api.*"))
                 .build();
     }
     
@@ -92,7 +92,7 @@ public class Application {
             compartmentRepository.save(c2);
 
 
-            bottleRepository.save(new Bottle(u1, bt1, c2,38,"http://localhost:8080/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
+            bottleRepository.save(new Bottle(u1, bt1, c2,38,"http://localhost:8080/api/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
         };
     }
 

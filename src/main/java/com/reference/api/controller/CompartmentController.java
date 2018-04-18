@@ -15,7 +15,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/compartment")
+@RequestMapping("/api/compartment")
 public class CompartmentController {
     @Autowired
     private CompartmentRepository compartmentRepository;
@@ -28,7 +28,7 @@ public class CompartmentController {
      * @param compartment
      * @return savedCompartment
      */
-    @RequestMapping(path = "/create",
+    @RequestMapping(path = "/",
             method = RequestMethod.POST,
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a compartment")
@@ -57,7 +57,7 @@ public class CompartmentController {
     /***
      * Update a compartment
      */
-    @RequestMapping(path="/update", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(path="/", method = RequestMethod.PUT, produces = "application/json")
     @ApiOperation(value = "Update a compartment")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = Compartment.class),
@@ -77,7 +77,7 @@ public class CompartmentController {
      * Deletes compartment identified with <code>id</code>
      * @param id
      */
-    @RequestMapping(path = "/delete/{id}",
+    @RequestMapping(path = "/{id}",
             method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete a compartment")
     public void delete(@PathVariable Long id) {
