@@ -1,4 +1,9 @@
-# SpringBoot-Swagger Rest API (school project)
+# :wine_glass: SpringBoot-Swagger Rest API (school project)
+
+REST Api to manage your wine cellar :wine_glass:
+
+You can checkout the [Angular5 client](https://github.com/lmsv73/cave-a-vins-client) 
+
 
 ## Overview
 This project is using a [boilerplate](https://github.com/afajem/spring-swagger-api)
