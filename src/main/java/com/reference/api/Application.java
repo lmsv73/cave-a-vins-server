@@ -52,45 +52,15 @@ public class Application {
 
     @Bean
     public CommandLineRunner fullSeed(UserRepository user_repo,
-                                      CompartmentRepository compartment_repo,
-                                      BottleTypeRepository bottletype_repo,
-                                      BottleRepository bottle_repo,
                                       RoleRepository roleRepository) {
         return (args) -> {
-
             roleRepository.save(new Role("ADMIN_ROLE"));
             roleRepository.save(new Role("USER_ROLE"));
 
             Role adminRole = roleRepository.findByName("ADMIN_ROLE");
-            Role userRole = roleRepository.findByName("USER_ROLE");
-
-            BottleType bt1 = (new BottleType("Bordeaux supérieur",true));
-            BottleType bt2 = new BottleType("saumur-champigny",true);
-            BottleType bt3 = new BottleType("sainte-croix-du-mont",true);
-            BottleType bt4 = new BottleType("vacqueyras",false);
-            bottletype_repo.save(bt1);
-            bottletype_repo.save(bt2);
-            bottletype_repo.save(bt3);
-            bottletype_repo.save(bt4);
-
-            User u1 = new User("ludo","asticot");
-            User u2 = new User("trima","asticot");
-            User u3 = new User("admin", "admin");
-
-            u1.setRoles(Arrays.asList(userRole));
-            u2.setRoles(Arrays.asList(userRole));
-            u3.setRoles(Arrays.asList(adminRole));
-
-            user_repo.save(u1);
-            user_repo.save(u2);
-            user_repo.save(u3);
-
-            Compartment c1 = new Compartment("A1",u1);
-            Compartment c2 = new Compartment("A2",u1);
-            compartment_repo.save(c1);
-            compartment_repo.save(c2);
-
-            bottle_repo.save(new Bottle(new Long(1957),"rhone alpes",u1,bt1,c2,38,"jaune","http://localhost:8080/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
+            User admin = new User("admin", "admin");
+            admin.setRoles(Arrays.asList(adminRole));
+            user_repo.save(admin);
         };
     }
 
