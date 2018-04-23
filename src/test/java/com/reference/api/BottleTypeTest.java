@@ -149,7 +149,7 @@ public class BottleTypeTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        BottleType obj = new BottleType("blabla", 1850,"Rhone", "rouge",true);
+        BottleType obj = new BottleType("blabla2", 1850,"Rhone", "purple",true);
         obj.setId(Integer.toUnsignedLong(1));
 
         request.setEntity(new StringEntity(mapper.writeValueAsString(obj), "UTF-8"));
@@ -168,7 +168,7 @@ public class BottleTypeTest {
 
         JsonNode rootNode = mapper.readTree(result);
 
-        assertEquals(rootNode.get(0).get("name").asText(), "blabla");
+        assertEquals(rootNode.get(0).get("name").asText(), "blabla2");
         assertEquals(rootNode.get(0).get("date").asText(), "1850");
         assertEquals(rootNode.get(0).get("region").asText(), "Rhone");
 
