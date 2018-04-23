@@ -1,6 +1,7 @@
 package com.reference.api;
 
-import com.reference.api.models.BottleType;
+import com.reference.api.models.*;
+import com.reference.api.repository.*;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -17,6 +18,7 @@ import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.json.JacksonJsonParser;
 
@@ -27,6 +29,7 @@ import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -37,7 +40,6 @@ import static org.junit.Assert.assertEquals;
 
 
 public class BottleTypeTest {
-
 
     /***
      * Problem : https://stackoverflow.com/questions/49887730/spring-boot-oauth2-403-forbidden-when-oauth-token-in-integration-test
@@ -74,8 +76,21 @@ public class BottleTypeTest {
     }
 
     @Test
+    public void should_create_user() throws IOException, URISyntaxException, Exception {
+
+    }
+
+    @Test
+    public void should_create_bottletype() throws IOException, URISyntaxException, Exception {
+
+    }
+
+
+
+    @Test
     public void should_200_On_Existing_BottleType() throws IOException, URISyntaxException, Exception {
         String token = obtainAccessToken("ludo","asticot");
+
         HttpUriRequest request = new HttpGet(new URL("http://localhost:" + 8080 + "/api/bottletype/").toURI());
         request.setHeader("Authorization", "Bearer " + token);
         HttpResponse response = HttpClientBuilder.create().build().execute(request);
@@ -129,4 +144,26 @@ public class BottleTypeTest {
 
 
     }
+
+    @Test
+    public void should_create_bottle() throws IOException, URISyntaxException, Exception {
+
+    }
+
+    @Test
+    public void should_update_bottle() throws IOException, URISyntaxException, Exception {
+
+    }
+
+    @Test
+    public void should_delete_bottle() throws IOException, URISyntaxException, Exception {
+
+    }
+
+    @Test
+    public void should_delete_bottletype() throws IOException, URISyntaxException, Exception {
+
+    }
+
+
 }
