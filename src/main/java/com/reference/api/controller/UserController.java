@@ -46,7 +46,7 @@ public class UserController {
     @RequestMapping(path = "/",
             method = RequestMethod.POST,
             consumes =  MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Create a user")
+    @ApiOperation(value = "Create a new user")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = User.class),
             @ApiResponse(code = 404, message = "Not Found"),
@@ -66,11 +66,11 @@ public class UserController {
     }
 
     /**
-     * Fetch list of user's bottle
+     * Fetch user's bottles
      * @return a list of bottle
      */
     @RequestMapping(path="/bottles", method = RequestMethod.GET, produces = "application/json")
-    @ApiOperation(value = "Fetch all bottle of the user")
+    @ApiOperation(value = "Fetch user's bottles")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 404, message = "Not Found"),
@@ -81,11 +81,11 @@ public class UserController {
     }
 
     /**
-     * Fetch user's compartment
+     * Fetch user's compartments
      * @return a list of bottle
      */
     @RequestMapping(path="/compartments", method = RequestMethod.GET, produces = "application/json")
-    @ApiOperation(value = "Fetch all compartments of the user")
+    @ApiOperation(value = "Fetch user's compartments")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 404, message = "Not Found"),
@@ -106,7 +106,7 @@ public class UserController {
      * @return a user
      */
     @RequestMapping(path="/credentials", method = RequestMethod.GET, produces = "application/json")
-    @ApiOperation(value = "Fetch all compartments of the user")
+    @ApiOperation(value = "Fetch user's credendials")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),
             @ApiResponse(code = 404, message = "Not Found"),

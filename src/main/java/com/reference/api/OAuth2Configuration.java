@@ -100,6 +100,7 @@ public class OAuth2Configuration {
                     .antMatchers("/api/bottletype/**").authenticated()
                     .antMatchers(HttpMethod.POST,"/api/bottletype/getBottleToValidate","/api/bottletype/update").hasAuthority("ADMIN_ROLE")
                     .antMatchers(HttpMethod.DELETE,"/api/bottletype/**").hasAuthority("ADMIN_ROLE")
+                    .antMatchers(HttpMethod.PUT,"/api/bottletype/**").hasAuthority("ADMIN_ROLE")
                     .antMatchers("/api/bottle/**").authenticated()
                     .antMatchers("/api/user/**").authenticated()
                     .antMatchers("/api/compartment/**").authenticated()

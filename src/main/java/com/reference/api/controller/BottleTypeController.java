@@ -5,6 +5,7 @@ import java.util.List;
 import com.reference.api.models.BottleType;
 import com.reference.api.repository.BottleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class BottleTypeController {
      */
     @RequestMapping(path="/", method = RequestMethod.GET, produces = "application/json")
 
-    @ApiOperation(value = "Fetch all type bottle")
+    @ApiOperation(value = "Fetch all validated bottleType")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = BottleType.class),
             @ApiResponse(code = 404, message = "Not Found"),
@@ -52,7 +53,7 @@ public class BottleTypeController {
     @RequestMapping(path = "/",
             method = RequestMethod.POST,
             consumes =  MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Create a bottle type")
+    @ApiOperation(value = "Create a new bottleType")
     public BottleType add(@RequestBody BottleType bottleType) {
         return bottleTypeRepository.save(bottleType);
     }
@@ -62,7 +63,7 @@ public class BottleTypeController {
      * Get all bottleTypes
      */
     @RequestMapping(path="/all", method = RequestMethod.GET, produces = "application/json")
-    @ApiOperation(value = "Get the list of the bottle types that aren't validated yet")
+        @ApiOperation(value = "Get the list of all the bottleType")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = BottleType.class),
             @ApiResponse(code = 404, message = "Not Found"),
@@ -80,7 +81,7 @@ public class BottleTypeController {
      * Update a bottle type
      */
     @RequestMapping(path="/", method = RequestMethod.PUT, produces = "application/json")
-    @ApiOperation(value = "Update a bottle type")
+    @ApiOperation(value = "Update a bottleType")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = BottleType.class),
             @ApiResponse(code = 404, message = "Not Found"),
@@ -100,9 +101,14 @@ public class BottleTypeController {
      */
     @RequestMapping(path = "/{id}",
             method = RequestMethod.DELETE)
-    @ApiOperation(value = "Delete a bottle type")
-    public void delete(@PathVariable Long id) {
-        bottleTypeRepository.delete(id);
+    @ApiOperation(value = "Delete a bottleType")
+    public ResponseEntity delete(@PathVariable Long id) {
+        try {
+            bottleTypeRepository.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        } catch (EmptyResultDataAccessException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
 

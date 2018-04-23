@@ -1,5 +1,6 @@
 package com.reference.api.controller;
 
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,7 @@ public class ImageController {
      */
     @RequestMapping(value = "/{imageName}", method = RequestMethod.GET,
             produces = MediaType.IMAGE_JPEG_VALUE)
+    @ApiOperation(value = "Get uploaded images from the server")
     public ResponseEntity<byte[]> getImage(@PathVariable("imageName") String imageName) throws IOException {
 
 
@@ -53,6 +55,7 @@ public class ImageController {
      * @return
      */
     @RequestMapping(value= "/", method = RequestMethod.POST, produces = MediaType.MULTIPART_FORM_DATA_VALUE) // //new annotation since 4.3
+    @ApiOperation(value = "Upload image on the server")
     public ResponseEntity<String> singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes) {
 

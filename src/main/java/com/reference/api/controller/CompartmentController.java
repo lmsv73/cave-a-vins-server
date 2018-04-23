@@ -1,12 +1,16 @@
 package com.reference.api.controller;
 
 
+import com.reference.api.models.Bottle;
 import com.reference.api.models.Compartment;
 import com.reference.api.models.User;
 import com.reference.api.repository.CompartmentRepository;
 import com.reference.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -63,14 +67,16 @@ public class CompartmentController {
             @ApiResponse(code = 200, message = "Success", response = Compartment.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public Compartment updateCompartment(@RequestBody Compartment compartment) {
+    public ResponseEntity<Compartment> updateCompartment(@RequestBody Compartment compartment) {
         Compartment c = compartmentRepository.findOne(compartment.getId());
+
+        if(c == null) {  return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);};
 
         c.id(compartment.getId());
         c.name(compartment.getName());
         c.setPhotoUrl(compartment.getPhotoUrl());
 
-        return compartmentRepository.save(c);
+        return ResponseEntity.status(HttpStatus.OK).body(compartmentRepository.save(c));
     }
 
     /**
@@ -80,8 +86,13 @@ public class CompartmentController {
     @RequestMapping(path = "/{id}",
             method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete a compartment")
-    public void delete(@PathVariable Long id) {
-        compartmentRepository.delete(id);
+    public ResponseEntity delete(@PathVariable Long id) {
+        try {
+            compartmentRepository.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        } catch (EmptyResultDataAccessException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
 
