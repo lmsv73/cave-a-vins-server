@@ -76,12 +76,45 @@ public class BottleTypeTest {
     }
 
     @Test
-    public void should_create_user() throws IOException, URISyntaxException, Exception {
+    public void should_200_On_create_user() throws IOException, URISyntaxException, Exception {
+        HttpPost request = new HttpPost(new URL("http://localhost:" + 8080 + "/api/user/?username=ludo&password=123").toURI());
 
+        request.setHeader("Accept", "application/json, text/plain, */*");
+        request.setHeader("Content-type", "application/json");
+
+        HttpResponse response = HttpClientBuilder.create().build().execute(request);
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_OK);
     }
 
     @Test
     public void should_create_bottletype() throws IOException, URISyntaxException, Exception {
+        String token = obtainAccessToken("ludo","123");
+        HttpPost request = new HttpPost(new URL("http://localhost:" + 8080 + "/api/bottletype/").toURI());
+
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        request.setHeader("Authorization", "Bearer " + token);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        BottleType obj = new BottleType("blabla", 1850,"Rhone", "rouge",true);
+
+        request.setEntity(new StringEntity(mapper.writeValueAsString(obj), "UTF-8"));
+
+        HttpResponse response = HttpClientBuilder.create().build().execute(request);
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_OK);
+
+
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        String result = rd.readLine();
+
+        JsonNode rootNode = mapper.readTree(result);
+
+        assertEquals(rootNode.get("name").asText(), "blabla");
+        assertEquals(rootNode.get("date").asText(), "1850");
+        assertEquals(rootNode.get("region").asText(), "Rhone");
 
     }
 
@@ -89,7 +122,7 @@ public class BottleTypeTest {
 
     @Test
     public void should_200_On_Existing_BottleType() throws IOException, URISyntaxException, Exception {
-        String token = obtainAccessToken("ludo","asticot");
+        String token = obtainAccessToken("ludo","123");
 
         HttpUriRequest request = new HttpGet(new URL("http://localhost:" + 8080 + "/api/bottletype/").toURI());
         request.setHeader("Authorization", "Bearer " + token);
@@ -99,7 +132,7 @@ public class BottleTypeTest {
 
     @Test
     public void should_200_On_BottleType_All() throws IOException, URISyntaxException, Exception {
-        String token = obtainAccessToken("ludo","asticot");
+        String token = obtainAccessToken("ludo","123");
         HttpUriRequest request = new HttpGet(new URL("http://localhost:" + 8080 + "/api/bottletype/all").toURI());
         request.setHeader("Authorization", "Bearer " + token);
         HttpResponse response = HttpClientBuilder.create().build().execute(request);
@@ -120,7 +153,6 @@ public class BottleTypeTest {
         BottleType obj = new BottleType("blabla", 1850,"Rhone", "rouge",true);
         obj.setId(Integer.toUnsignedLong(1));
 
-        String test = mapper.writeValueAsString(obj);
         request.setEntity(new StringEntity(mapper.writeValueAsString(obj), "UTF-8"));
 
         HttpResponse response = HttpClientBuilder.create().build().execute(request);
@@ -138,10 +170,8 @@ public class BottleTypeTest {
         JsonNode rootNode = mapper.readTree(result);
 
         assertEquals(rootNode.get(0).get("name").asText(), "blabla");
-        assertEquals(rootNode.get(0).get("date").asText(), 1850);
+        assertEquals(rootNode.get(0).get("date").asText(), "1850");
         assertEquals(rootNode.get(0).get("region").asText(), "Rhone");
-
-
 
     }
 

@@ -108,6 +108,67 @@ public class BottleType {
         this.valide = valide;
     }
 
+    public BottleType colour(String colour) {
+        this.colour = colour;
+        return this;
+    }
+
+    /**
+     * Get colour
+     * @return colour
+     **/
+    @ApiModelProperty(value = "")
+
+
+    public String getColour() {
+        return colour;
+    }
+
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
+
+
+    public BottleType date(Integer date) {
+        this.date = date;
+        return this;
+    }
+
+    /**
+     * Get date
+     * @return date
+     **/
+    @ApiModelProperty(value = "")
+
+
+    public Integer getDate() {
+        return date;
+    }
+
+    public void setDate(Integer date) {
+        this.date = date;
+    }
+
+    public BottleType region(String region) {
+        this.region = region;
+        return this;
+    }
+
+    /**
+     * Get region
+     * @return region
+     **/
+    @ApiModelProperty(value = "")
+
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
 
     @Override
     public boolean equals(java.lang.Object o) {
