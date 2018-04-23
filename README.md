@@ -1,4 +1,10 @@
-# SpringBoot-Swagger Rest API (school project)
+# :wine_glass: SpringBoot-Swagger Rest API 
+This is a school project for the course INFO806 Integration Continu given by [Guillaume Jambet](https://github.com/gjambet)
+
+REST Api to manage your wine cellar :wine_glass:
+
+You can checkout the [Angular5 client](https://github.com/lmsv73/cave-a-vins-client) 
+
 
 ## Overview
 This project is using a [boilerplate](https://github.com/afajem/spring-swagger-api)
@@ -25,3 +31,7 @@ To run the project:
 To view the generated Swagger UI documentation go to: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 
 To view the H2 Database [http://localhost:8080/h2console/](http://localhost:8080/h2console/)
+
+## API Endpoints
+
+![api-swagger-documentation](https://raw.githubusercontent.com/lmsv73/cave-a-vins-server/master/API_endpoints.png "Swagger Documentation")

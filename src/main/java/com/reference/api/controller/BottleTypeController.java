@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiResponses;
 
 
 @RestController
-@RequestMapping("/bottletype")
+@RequestMapping("/api/bottletype")
 public class BottleTypeController {
     @Autowired
     private BottleTypeRepository bottleTypeRepository;
@@ -35,7 +35,7 @@ public class BottleTypeController {
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
     public ResponseEntity bottles() {
-        List<BottleType> bottles = (List<BottleType>) bottleTypeRepository.findByValide(true);
+        List<BottleType> bottles = bottleTypeRepository.findByValide(true);
         if(bottles == null){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
@@ -69,7 +69,7 @@ public class BottleTypeController {
             @ApiResponse(code = 500, message = "Server Error")})
     public ResponseEntity getBottleToValidate() {
         List<BottleType> bottlesTypes = bottleTypeRepository.findAll();
-        if(bottlesTypes.size() == 0){
+        if(bottlesTypes.isEmpty()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(bottlesTypes);
@@ -79,7 +79,7 @@ public class BottleTypeController {
     /***
      * Update a bottle type
      */
-    @RequestMapping(path="/update", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(path="/", method = RequestMethod.PUT, produces = "application/json")
     @ApiOperation(value = "Update a bottle type")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = BottleType.class),
@@ -98,7 +98,7 @@ public class BottleTypeController {
      * Deletes bottle type identified with <code>id</code>
      * @param id
      */
-    @RequestMapping(path = "/delete/{id}",
+    @RequestMapping(path = "/{id}",
             method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete a bottle type")
     public void delete(@PathVariable Long id) {

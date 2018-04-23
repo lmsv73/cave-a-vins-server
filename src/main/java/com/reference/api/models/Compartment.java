@@ -6,8 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -86,11 +84,6 @@ public class Compartment {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Compartment photoUrl( String photoUrl) {
-        this.photoUrl = photoUrl;
-        return this;
     }
 
     public User getOwner() {

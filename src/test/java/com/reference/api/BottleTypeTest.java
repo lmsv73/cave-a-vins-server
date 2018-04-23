@@ -3,16 +3,19 @@ package com.reference.api;
 import com.reference.api.models.BottleType;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.junit.Test;
+import org.springframework.boot.json.JacksonJsonParser;
 
 import javax.naming.Name;
 import java.io.IOException;
@@ -27,6 +30,41 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class BottleTypeTest {
+
+
+    /***
+     * Problem : https://stackoverflow.com/questions/49887730/spring-boot-oauth2-403-forbidden-when-oauth-token-in-integration-test
+     * @param username
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    private String obtainAccessToken(String username, String password) throws Exception {
+
+        ArrayList<NameValuePair> params;
+
+        params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("grant_type", "password"));
+        params.add(new BasicNameValuePair("username", username));
+        params.add(new BasicNameValuePair("password", password));
+
+        HttpPost request = new HttpPost(new URL("http://localhost:" + 8080 + "/oauth/token/").toURI());
+
+
+        request.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+
+
+        request.setHeader(new BasicHeader("Authorization", "Basic Z2lneTpzZWNyZXQ="));
+        request.setHeader("Content-type", "application/x-www-form-urlencoded");
+
+        System.out.println("executing request " + request.getRequestLine());
+        HttpResponse response = HttpClientBuilder.create().build().execute(request);
+
+        String test = response.getEntity().getContent().toString();
+
+        JacksonJsonParser jsonParser = new JacksonJsonParser();
+        return jsonParser.parseMap(response.getEntity().getContent().toString()).get("access_token").toString();
+    }
 
     @Test
     public void should_200_On_Existing_BottleType() throws IOException, URISyntaxException {
@@ -43,7 +81,8 @@ public class BottleTypeTest {
     }
 
     @Test
-    public void should_200_On_Updating_BottleType() throws IOException, URISyntaxException {
+    public void should_200_On_Updating_BottleType() throws IOException, URISyntaxException, Exception {
+        String token = obtainAccessToken("ludo","asticot");
         HttpPost request = new HttpPost(new URL("http://localhost:" + 8080 + "/bottletype/update/").toURI());
 
         request.setHeader("Accept", "application/json");
@@ -51,7 +90,7 @@ public class BottleTypeTest {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        BottleType obj = new BottleType("blabla",true);
+        BottleType obj = new BottleType("blabla", 1850,"Rhone", "rouge",true);
         obj.setId(Integer.toUnsignedLong(1));
 
         request.setEntity(new StringEntity(mapper.writeValueAsString(obj), "UTF-8"));

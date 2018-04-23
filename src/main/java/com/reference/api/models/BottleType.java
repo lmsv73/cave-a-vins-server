@@ -26,14 +26,26 @@ public class BottleType {
     @JsonProperty("valide")
     private Boolean valide = null;
 
+    @JsonProperty("region")
+    private String region = null;
+
+    @JsonProperty("colour")
+    private String colour = null;
+
+    @JsonProperty("date")
+    private int date = 1800;
+
     public BottleType id(Long id) {
         this.id = id;
         return this;
     }
 
-    public BottleType(String name,Boolean valide) {
+    public BottleType(String name, int date, String region, String colour, Boolean valide) {
         this.name = name;
         this.valide = valide;
+        this.region = region;
+        this.colour = colour;
+        this.date = date;
     }
 
     protected BottleType() {
@@ -108,21 +120,26 @@ public class BottleType {
         BottleType bottleType = (BottleType) o;
         return Objects.equals(this.id, bottleType.id) &&
                 Objects.equals(this.name, bottleType.name) &&
+                Objects.equals(this.date, bottleType.date) &&
+                Objects.equals(this.colour, bottleType.colour) &&
+                Objects.equals(this.region, bottleType.region) &&
                 Objects.equals(this.valide, bottleType.valide);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, valide);
+        return Objects.hash(id, name, date, colour, region, valide);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("class BottleType {\n");
-
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    region: ").append(toIndentedString(region)).append("\n");
+        sb.append("    date: ").append(toIndentedString(date)).append("\n");
+        sb.append("    colour: ").append(toIndentedString(colour)).append("\n");
         sb.append("    valide: ").append(toIndentedString(valide)).append("\n");
         sb.append("}");
         return sb.toString();

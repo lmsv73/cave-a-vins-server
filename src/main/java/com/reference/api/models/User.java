@@ -23,11 +23,6 @@ public class User implements UserDetails {
     @JsonProperty("password")
     private String password = null;
 
-    @OneToMany(targetEntity = Bottle.class,cascade = CascadeType.ALL)
-    private List<Bottle> bottlelist;
-
-    @OneToMany(targetEntity = Compartment.class, cascade = CascadeType.ALL)
-    private List<Compartment> compartmentsList;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -114,7 +109,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Collections.emptyList();
     }
 
     /**

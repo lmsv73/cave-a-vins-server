@@ -1,7 +1,6 @@
 package com.reference.api.models;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Proxy;
@@ -11,8 +10,6 @@ import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 @Proxy(lazy = false)
 @Entity
@@ -41,18 +38,6 @@ public class Bottle {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonProperty("id")
     private Long id = null;
-
-    @Column(nullable = false)
-    @JsonProperty("date")
-    private Long date = null;
-
-    @Column(nullable = false)
-    @JsonProperty("region")
-    private String region = null;
-
-    @Column(nullable = true)
-    @JsonProperty("colour")
-    private String colour = null;
 
     @ManyToOne(targetEntity=User.class, fetch=FetchType.EAGER)
     @Type(type="user")
@@ -91,14 +76,11 @@ public class Bottle {
         return this;
     }
 
-    public Bottle(Long date, String region, User owner, BottleType type, Compartment compartment, int nbBottles,String colour, String photoUrl) {
-        this.date = date;
+    public Bottle(User owner, BottleType type, Compartment compartment, int nbBottles, String photoUrl) {
         this.setOwner(owner);
-        this.region = region;
         this.setCompartment(compartment);
         this.setType(type);
         this.nbBottles = nbBottles;
-        this.colour = colour;
         this.photoUrl = photoUrl;
 
     }
@@ -121,73 +103,6 @@ public class Bottle {
     public void setId(Long id) {
         this.id = id;
     }
-
-    public Bottle date(Long date) {
-        this.date = date;
-        return this;
-    }
-
-    /**
-     * Get date
-     * @return date
-     **/
-    @ApiModelProperty(value = "")
-
-
-    public Long getDate() {
-        return date;
-    }
-
-    public void setDate(Long date) {
-        this.date = date;
-    }
-
-    public Bottle region(String region) {
-        this.region = region;
-        return this;
-    }
-
-    /**
-     * Get region
-     * @return region
-     **/
-    @ApiModelProperty(value = "")
-
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public Bottle colour(String colour) {
-        this.colour = colour;
-        return this;
-    }
-
-    /**
-     * Get colour
-     * @return colour
-     **/
-    @ApiModelProperty(value = "")
-
-
-    public String getColour() {
-        return colour;
-    }
-
-    public void setColour(String colour) {
-        this.colour = colour;
-    }
-
-    /**
-     * Get photoUrl
-     * @return photoUrl
-     **/
-    @ApiModelProperty(value = "")
-
 
     public String getPhotoUrl() {
         return photoUrl;
@@ -271,9 +186,6 @@ public class Bottle {
         }
         Bottle bottle = (Bottle) o;
         return Objects.equals(this.id, bottle.id) &&
-                Objects.equals(this.date, bottle.date) &&
-                Objects.equals(this.region, bottle.region) &&
-                Objects.equals(this.colour, bottle.colour) &&
                 Objects.equals(this.photoUrl, bottle.photoUrl) &&
                 Objects.equals(this.owner, bottle.owner) &&
                 Objects.equals(this.type, bottle.type) &&
@@ -282,7 +194,7 @@ public class Bottle {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, date, region, colour, photoUrl, owner, type, compartment);
+        return Objects.hash(id, photoUrl, owner, type, compartment);
     }
 
     @Override
@@ -291,9 +203,6 @@ public class Bottle {
         sb.append("class Bottle {\n");
 
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
-        sb.append("    date: ").append(toIndentedString(date)).append("\n");
-        sb.append("    region: ").append(toIndentedString(region)).append("\n");
-        sb.append("    colour: ").append(toIndentedString(colour)).append("\n");
         sb.append("    photoUrl: ").append(toIndentedString(photoUrl)).append("\n");
         sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
         sb.append("    type: ").append(toIndentedString(type)).append("\n");

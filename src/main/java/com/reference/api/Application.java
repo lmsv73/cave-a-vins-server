@@ -31,12 +31,12 @@ public class Application {
 
 
    @Bean
-    public Docket Api() {
+    public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("spring-swagger-api")
                 .apiInfo(apiInfo())
                 .select()
-                .paths(regex ("/*.*"))
+                .paths(regex ("/api.*"))
                 .build();
     }
     
@@ -63,6 +63,5 @@ public class Application {
             user_repo.save(admin);
         };
     }
-
 
 }

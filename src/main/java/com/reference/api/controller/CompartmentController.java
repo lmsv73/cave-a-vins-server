@@ -1,15 +1,12 @@
 package com.reference.api.controller;
 
-import java.util.List;
 
 import com.reference.api.models.Compartment;
 import com.reference.api.models.User;
 import com.reference.api.repository.CompartmentRepository;
 import com.reference.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,7 +15,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping("/compartment")
+@RequestMapping("/api/compartment")
 public class CompartmentController {
     @Autowired
     private CompartmentRepository compartmentRepository;
@@ -31,7 +28,7 @@ public class CompartmentController {
      * @param compartment
      * @return savedCompartment
      */
-    @RequestMapping(path = "/create",
+    @RequestMapping(path = "/",
             method = RequestMethod.POST,
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a compartment")
@@ -54,14 +51,13 @@ public class CompartmentController {
     @ApiOperation(value = "Upload an image for the compartment")
     public Compartment uploadImage(@RequestParam String url, @PathVariable("compartmentId") Long id) {
         Compartment tmpCompartment = compartmentRepository.findOne(id);
-        Compartment savedCompartment =  compartmentRepository.save(tmpCompartment.setPhotoUrl(url));
-        return savedCompartment;
+        return compartmentRepository.save(tmpCompartment.setPhotoUrl(url));
     }
 
     /***
      * Update a compartment
      */
-    @RequestMapping(path="/update", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(path="/", method = RequestMethod.PUT, produces = "application/json")
     @ApiOperation(value = "Update a compartment")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = Compartment.class),
@@ -72,7 +68,7 @@ public class CompartmentController {
 
         c.id(compartment.getId());
         c.name(compartment.getName());
-        c.photoUrl(compartment.getPhotoUrl());
+        c.setPhotoUrl(compartment.getPhotoUrl());
 
         return compartmentRepository.save(c);
     }
@@ -81,7 +77,7 @@ public class CompartmentController {
      * Deletes compartment identified with <code>id</code>
      * @param id
      */
-    @RequestMapping(path = "/delete/{id}",
+    @RequestMapping(path = "/{id}",
             method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete a compartment")
     public void delete(@PathVariable Long id) {

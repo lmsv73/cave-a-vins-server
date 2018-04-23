@@ -23,13 +23,11 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import javax.sql.DataSource;
 
 
 @Configuration
 public class OAuth2Configuration {
 
-    private static final String RESOURCE_ID = "restservice";
 
     @Configuration
     @EnableAuthorizationServer
@@ -98,14 +96,15 @@ public class OAuth2Configuration {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/swagger-ui.html").permitAll()
-                    .antMatchers("/user/create").permitAll()
-                    .antMatchers("/bottletype/**").authenticated()
-                    .antMatchers(HttpMethod.POST,"/bottletype/getBottleToValidate","/bottletype/update").hasAuthority("ADMIN_ROLE")
-                    .antMatchers(HttpMethod.DELETE,"/bottletype/**").hasAuthority("ADMIN_ROLE")
-                    .antMatchers("/bottletype/**").authenticated()
-                    .antMatchers("/bottle/**").authenticated()
-                    .antMatchers("/user/**").authenticated()
-                    .antMatchers("/compartment/**").authenticated()
+                    .antMatchers("/api/user/").permitAll()
+                    .antMatchers("/api/bottletype/**").authenticated()
+                    .antMatchers(HttpMethod.POST,"/api/bottletype/getBottleToValidate","/api/bottletype/update").hasAuthority("ADMIN_ROLE")
+                    .antMatchers(HttpMethod.DELETE,"/api/bottletype/**").hasAuthority("ADMIN_ROLE")
+                    .antMatchers("/api/bottle/**").authenticated()
+                    .antMatchers("/api/user/**").authenticated()
+                    .antMatchers("/api/compartment/**").authenticated()
+                    .antMatchers("/api/regions/**").authenticated()
+                    .antMatchers(HttpMethod.POST, "/api/images/**").authenticated()
 
             ;
 

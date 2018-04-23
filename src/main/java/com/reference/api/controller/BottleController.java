@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiResponses;
 
 
 @RestController
-@RequestMapping("/bottle")
+@RequestMapping("/api/bottle")
 public class BottleController {
     @Autowired
     private BottleRepository bottleRepository;
@@ -43,7 +43,7 @@ public class BottleController {
      * @param bottle
      * @return savedBottle
      */
-    @RequestMapping(path = "/create",
+    @RequestMapping(path = "/",
             method = RequestMethod.POST,
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a bottle type")
@@ -51,7 +51,7 @@ public class BottleController {
         Compartment c = compartmentRepository.findOne(bottle.getCompartment().getId());
         BottleType bt = bottleTypeRepository.findOne(bottle.getType().getId());
         User u = userRepository.findOne(bottle.getOwner().getId());
-        Bottle savedBottle =  bottleRepository.save(new Bottle(bottle.getDate(),bottle.getRegion(),u,bt,c,bottle.getNbBottles(),bottle.getColour(),bottle.getPhotoUrl()));
+        Bottle savedBottle =  bottleRepository.save(new Bottle(u, bt, c, bottle.getNbBottles(), bottle.getPhotoUrl()));
         compartmentRepository.save(c);
         return savedBottle;
     }
@@ -59,13 +59,13 @@ public class BottleController {
     /***
      * Get a bottle by id
      */
-    @RequestMapping(path="/bottle/{bottleID}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(path="/{bottleID}", method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "Get a bottle by id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = Bottle.class),
             @ApiResponse(code = 404, message = "Not Found"),
             @ApiResponse(code = 500, message = "Server Error")})
-    public ResponseEntity<Bottle> updateBottleType(@PathVariable("bottleID") Long id) {
+    public ResponseEntity<Bottle> getBottle(@PathVariable("bottleID") Long id) {
         Bottle bottle = bottleRepository.findOne(id);
 
         if(bottle == null) {
@@ -81,19 +81,16 @@ public class BottleController {
      * @param bottle
      * @return savedBottle
      */
-    @RequestMapping(path = "/update",
-            method = RequestMethod.POST,
+    @RequestMapping(path = "/",
+            method = RequestMethod.PUT,
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Update an existing bottle")
     public Bottle update(@RequestBody Bottle bottle) {
         Bottle b = bottleRepository.findOne(bottle.getId());
 
         b.id(bottle.getId());
-        b.colour(bottle.getColour());
         b.type(bottle.getType());
-        b.region(bottle.getRegion());
         b.compartment(bottle.getCompartment());
-        b.date(bottle.getDate());
         b.setNbBottles(bottle.getNbBottles());
         b.setPhotoUrl(bottle.getPhotoUrl());
 
@@ -104,7 +101,7 @@ public class BottleController {
      * Deletes bottle by id
      * @param id
      */
-    @RequestMapping(path = "/delete/{id}",
+    @RequestMapping(path = "/{id}",
             method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete a bottle")
     public void delete(@PathVariable Long id) {

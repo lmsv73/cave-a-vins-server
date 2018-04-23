@@ -1,12 +1,15 @@
 package com.reference.api.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.reference.api.models.Bottle;
 import com.reference.api.models.Compartment;
 import com.reference.api.models.User;
+import com.reference.api.models.Role;
 import com.reference.api.repository.BottleRepository;
 import com.reference.api.repository.CompartmentRepository;
+import com.reference.api.repository.RoleRepository;
 import com.reference.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +25,7 @@ import io.swagger.annotations.ApiResponses;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     @Autowired
     private UserRepository userRepository;
@@ -30,6 +33,8 @@ public class UserController {
     private BottleRepository bottleRepository;
     @Autowired
     private CompartmentRepository compartmentRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     /**
      * Create a new user
@@ -38,7 +43,7 @@ public class UserController {
      * @param password
      * @return savedUser
      */
-    @RequestMapping(path = "/create",
+    @RequestMapping(path = "/",
             method = RequestMethod.POST,
             consumes =  MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Create a user")
@@ -50,30 +55,13 @@ public class UserController {
         User usr = userRepository.findOneByUsername(username);
 
         if(usr == null){
+            Role rl = roleRepository.findByName("USER_ROLE");
             User u = new User(username, password);
+            u.setRoles(Arrays.asList(rl));
             userRepository.save(u);
             return ResponseEntity.status(HttpStatus.OK).body(null);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-    }
-
-    /***
-     * User login
-     */
-    @RequestMapping(path = "/login" ,
-            method = RequestMethod.GET )
-    @ApiOperation(value = "Login a user")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Success", response = User.class),
-            @ApiResponse(code = 404, message = "Not Found"),
-            @ApiResponse(code = 500, message = "Server Error")})
-    public ResponseEntity<User> login(@RequestParam("username") String username, @RequestParam("password") String password){
-        List<User> savedUser = userRepository.findByUsernameAndPassword(username,password);
-        if(savedUser.size()==0){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        } else {
-            return ResponseEntity.status(HttpStatus.OK).body(savedUser.get(0));
         }
     }
 
