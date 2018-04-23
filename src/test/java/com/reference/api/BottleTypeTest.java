@@ -176,22 +176,122 @@ public class BottleTypeTest {
     }
 
     @Test
-    public void should_create_bottle() throws IOException, URISyntaxException, Exception {
+    public void should_200_On_create_compartment() throws IOException, URISyntaxException, Exception {
+        String token = obtainAccessToken("ludo","123");
+
+        HttpPost request = new HttpPost(new URL("http://localhost:" + 8080 + "/api/compartment/").toURI());
+
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        request.setHeader("Authorization", "Bearer " + token);
+
+        ObjectMapper mapper = new ObjectMapper();
+        User u = new User("ludo", "123");
+        u.setId(new Long(1));
+        Compartment obj = new Compartment("A2", u);
+
+        request.setEntity(new StringEntity(mapper.writeValueAsString(obj), "UTF-8"));
+
+        HttpResponse response = HttpClientBuilder.create().build().execute(request);
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_OK);
+
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        String result = rd.readLine();
+
+        JsonNode rootNode = mapper.readTree(result);
+
+        assertEquals(rootNode.get("name").asText(), "A2");
+
+    }
+
+
+    @Test
+    public void compartment() throws IOException, URISyntaxException, Exception {
+        String token = obtainAccessToken("ludo","123");
+        HttpPut request = new HttpPut(new URL("http://localhost:" + 8080 + "/api/compartment/").toURI());
+
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        request.setHeader("Authorization", "Bearer " + token);
+
+        ObjectMapper mapper = new ObjectMapper();
+        User u = new User("ludo","");
+        u.setId(Integer.toUnsignedLong(1));
+        Compartment obj = new Compartment("A6",u);
+        obj.setId(Integer.toUnsignedLong(1));
+
+        request.setEntity(new StringEntity(mapper.writeValueAsString(obj), "UTF-8"));
+
+        HttpResponse response = HttpClientBuilder.create().build().execute(request);
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_OK);
+
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        String result = rd.readLine();
+
+        JsonNode rootNode = mapper.readTree(result);
+
+        assertEquals(rootNode.get("name").asText(), "A6");
 
     }
 
     @Test
-    public void should_update_bottle() throws IOException, URISyntaxException, Exception {
+    public void should_200_On_create_bottle() throws IOException, URISyntaxException, Exception {
+        String token = obtainAccessToken("ludo","123");
+
+        HttpPost request = new HttpPost(new URL("http://localhost:" + 8080 + "/api/bottle/").toURI());
+
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        request.setHeader("Authorization", "Bearer " + token);
+
+        ObjectMapper mapper = new ObjectMapper();
+        User u = new User("ludo", "123");
+        u.setId(new Long(1));
+
+        BottleType BT = new BottleType("blabla", 1850,"Rhone", "rouge",true);
+        BT.setId(Integer.toUnsignedLong(1));
+
+        Compartment C = new Compartment("A2", u);
+        C.setId(new Long(1));
+
+        Bottle obj = new Bottle(u, BT, C, 22, null);
+
+        request.setEntity(new StringEntity(mapper.writeValueAsString(obj), "UTF-8"));
+
+        HttpResponse response = HttpClientBuilder.create().build().execute(request);
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_OK);
+
+        BufferedReader rd = new BufferedReader(
+                new InputStreamReader(response.getEntity().getContent()));
+
+        String result = rd.readLine();
+
+        JsonNode rootNode = mapper.readTree(result);
+
+        assertEquals(rootNode.get("nbBottles").asText(), "22");
+    }
+
+    @Test
+    public void should_200_On_update_bottle() throws IOException, URISyntaxException, Exception {
 
     }
 
     @Test
-    public void should_delete_bottle() throws IOException, URISyntaxException, Exception {
+    public void should_200_On_delete_bottle() throws IOException, URISyntaxException, Exception {
 
     }
 
     @Test
-    public void should_delete_bottletype() throws IOException, URISyntaxException, Exception {
+    public void should_200_On_delete_compartment() throws IOException, URISyntaxException, Exception {
+
+    }
+
+    @Test
+    public void should_200_On_delete_bottletype() throws IOException, URISyntaxException, Exception {
 
     }
 
