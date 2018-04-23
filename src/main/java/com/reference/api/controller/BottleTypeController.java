@@ -5,6 +5,7 @@ import java.util.List;
 import com.reference.api.models.BottleType;
 import com.reference.api.repository.BottleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -101,8 +102,13 @@ public class BottleTypeController {
     @RequestMapping(path = "/{id}",
             method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete a bottle type")
-    public void delete(@PathVariable Long id) {
-        bottleTypeRepository.delete(id);
+    public ResponseEntity delete(@PathVariable Long id) {
+        try {
+            bottleTypeRepository.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body(null);
+        } catch (EmptyResultDataAccessException e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
 

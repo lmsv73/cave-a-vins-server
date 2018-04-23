@@ -356,4 +356,19 @@ public class BottleTypeTest {
         assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_OK);
     }
 
+    @Test
+    public void t13_should_404_On_delete_non_existing_bottletype() throws IOException, URISyntaxException, Exception {
+        String token = obtainAccessToken("ludo","123");
+
+        HttpDelete request = new HttpDelete(new URL("http://localhost:" + 8080 + "/api/bottletype/568").toURI());
+
+        request.setHeader("Accept", "application/json");
+        request.setHeader("Content-type", "application/json");
+        request.setHeader("Authorization", "Bearer " + token);
+
+
+        HttpResponse response = HttpClientBuilder.create().build().execute(request);
+        assertThat(response.getStatusLine().getStatusCode()).isEqualTo(SC_NOT_FOUND);
+    }
+
 }
