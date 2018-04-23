@@ -51,16 +51,48 @@ public class Application {
    }
 
     @Bean
-    public CommandLineRunner fullSeed(UserRepository user_repo,
+    public CommandLineRunner fullSeed(UserRepository userRepository,
+                                      CompartmentRepository compartmentRepository,
+                                      BottleTypeRepository bottleTypeRepository,
+                                      BottleRepository bottleRepository,
                                       RoleRepository roleRepository) {
-        return (args) -> {
+        return args -> {
+
             roleRepository.save(new Role("ADMIN_ROLE"));
             roleRepository.save(new Role("USER_ROLE"));
 
             Role adminRole = roleRepository.findByName("ADMIN_ROLE");
-            User admin = new User("admin", "admin");
-            admin.setRoles(Arrays.asList(adminRole));
-            user_repo.save(admin);
+            Role userRole = roleRepository.findByName("USER_ROLE");
+
+            BottleType bt1 = new BottleType("Bordeaux supérieur", 1987,"Bordeaux", "rouge", true);
+            BottleType bt2 = new BottleType("Saumur-champigny", 1962,"Anjou", "rouge", true);
+            BottleType bt3 = new BottleType("Sainte-croix-du-mont", 1999,"Entre-deux-Mers", "blanc", true);
+            BottleType bt4 = new BottleType("Vacqueyras", 2010," vallée du Rhône méridionale", "rouge", false);
+
+            bottleTypeRepository.save(bt1);
+            bottleTypeRepository.save(bt2);
+            bottleTypeRepository.save(bt3);
+            bottleTypeRepository.save(bt4);
+
+            User u1 = new User("ludo","asticot");
+            User u2 = new User("trima","asticot");
+            User u3 = new User("admin", "admin");
+
+            u1.setRoles(Arrays.asList(userRole));
+            u2.setRoles(Arrays.asList(userRole));
+            u3.setRoles(Arrays.asList(adminRole));
+
+            userRepository.save(u1);
+            userRepository.save(u2);
+            userRepository.save(u3);
+
+            Compartment c1 = new Compartment("A1",u1);
+            Compartment c2 = new Compartment("A2",u1);
+            compartmentRepository.save(c1);
+            compartmentRepository.save(c2);
+
+
+            bottleRepository.save(new Bottle(u1, bt1, c2,38,"http://localhost:8080/api/images/rouge-bordeaux-bordeaux-superieur-aoc-2007"));
         };
     }
 
