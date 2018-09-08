@@ -50,7 +50,7 @@ To view the H2 Database [http://localhost:8080/h2console/](http://localhost:8080
 - JDBC Url `jdbc:h2:mem:test`
 - No username nor password are required to login into the H2 console.
 
-![api-swagger-documentation](https://raw.githubusercontent.com/lmsv73/cave-a-vins-server/master/h2_console.png "H2 Console")
+![h2-console](https://raw.githubusercontent.com/lmsv73/cave-a-vins-server/master/h2_console.png "H2 Console")
 
 ## API Endpoints
 
